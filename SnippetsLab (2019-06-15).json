@@ -1,0 +1,1470 @@
+{
+  "Library Name" : "main.snippetslablibrary",
+  "Date Exported" : "2019-06-15 19:24:16 +0100",
+  "Snippets Count" : "72",
+  "Snippets" : [
+    {
+      "Date Created" : "2018-09-19 10:10:55 +0100",
+      "Date Modified" : "2018-09-19 10:11:09 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Perform Find",
+      "Fragments" : [
+        {
+          "Content" : "If FileMaker Pro doesn't find any records that match the find criteria when you perform the script, you can stop the script, continue the script with zero records in the current found set, or change the find criteria. By using the Set Error Capture script step and the Get(LastError) function, you can set up a script to handle such situations. For example:\nThe following script tries to perform a find. If no records are found, a custom dialog will appear giving the user the option to modify the find request or go back to Browse mode.\n\n\nSet Error Capture [On]\nPerform Find [Restore]\nIf [Get (LastError) > 0]\nShow Custom Dialog [\"No records were found. Click OK to modify\nyour request or click Cancel to return to Browse mode.\"]\nIf [Get (LastMessageChoice) = 1]\nModify Last Find\nElse\nEnter Browse Mode []\nEnd If\nEnd If",
+          "Date Modified" : "2018-09-19 10:11:20 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-19 10:10:55 +0100"
+        }
+      ],
+      "Tags" : [
+        "Filemaker",
+        "Find"
+      ]
+    },
+    {
+      "Date Created" : "2018-06-03 23:37:43 +0100",
+      "Date Modified" : "2018-06-03 23:37:47 +0100",
+      "Folder" : "Superbase",
+      "Title" : "Password",
+      "Fragments" : [
+        {
+          "Content" : "STATUS ON \n OPEN FILE \"password\"\n\n FOR a1% = 48 TO 122\n    IF a1% > 57 AND a1% < 65 THEN a1% = 65\n    IF a1% > 90 AND a1% < 95 THEN a1% = 95\n    a1$ = CHR$ (a1%)\n FOR a2% = 48 TO 122\n    IF a2% > 57 AND a2% < 65 THEN a2% = 65\n    IF a2% > 90 AND a2% < 95 THEN a2% = 95\n    a2$ = CHR$ (a2%)\n FOR a3% = 48 TO 122\n    IF a3% > 57 AND a3% < 65 THEN a3% = 65\n    IF a3% > 90 AND a3% < 95 THEN a3% = 95\n    a3$ = CHR$ (a3%)\n FOR a4% = 48 TO 122\n    IF a4% > 57 AND a4% < 65 THEN a4% = 65\n    IF a4% > 90 AND a4% < 95 THEN a4% = 95\n    a4$ = CHR$ (a4%)\n    pw$ = a4$ + a3$ + a2$ + a1$\n    GOSUB test\n FOR a5% = 48 TO 122\n   IF a5% > 57 AND a5% < 65 THEN a5% = 65\n   IF a5% > 90 AND a5% < 95 THEN a5% = 95\n a5$ = CHR$ (a5%)\n    pw$ = a5$ + a4$ + a3$ + a2$ + a1$\n    GOSUB test\n FOR a6% = 48 TO 122\n     IF a6% > 57 AND a6% < 65 THEN a6% = 65\n    IF a6% > 90 AND a6% < 95 THEN a6% = 95\n    a6$ = CHR$ (a6%)\n    pw$ = a6$ + a5$ + a4$ + a3$ + a2$ + a1$\n    GOSUB test\n FOR a7% = 48 TO 122\n      IF a7% > 57 AND a7% < 65 THEN a7% = 65\n    IF a7% > 90 AND a7% < 95 THEN a7% = 95\n    a7$ = CHR$ (a7%)\n    pw$ = a7$ + a6$ + a5$ + a4$ + a3$ + a2$ + a1$\n    GOSUB test\n FOR a8% = 48 TO 122\n    IF a8% > 57 AND a8% < 65 THEN a8% = 65\n    IF a8% > 90 AND a8% < 95 THEN a8% = 95\n    a8$ = CHR$ (a8%)\n    pw$ = a8$ + a7$ + a6$ + a5$ + a4$ + a3$ + a2$ + a1$\n    GOSUB test\n NEXT a8%:NEXT a7%:NEXT a6%:NEXT a5%\n NEXT a4%:NEXT a3%:NEXT a2%:NEXT a1%\n\ntest: \n   cnt&% = cnt&% + 1\n   cnt$ = STR$ (cnt&%,\"999999999\")\n   statustext = \"Attempt: \" + cnt$ + \". Trying password \" + pw$\n   op$ = \"MAILS;\" + pw$\n   st$ = \"\"\n   SET ERROR OFF ALL \n   OPEN FILE op$\n   SELECT FIRST \n   st$ = sender\n   IF st$ > \"\" THEN \n        FILE \"PASSWORD\"\n        BLANK \n        pw = pw$\n        STORE \n        VIEW \n        END \n    END IF \n    SET ERROR ON ALL \n    RETURN \n\n ",
+          "Date Modified" : "2018-06-03 23:39:56 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "VB.net",
+          "Date Created" : "2018-06-03 23:37:43 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:39:42 +0100",
+      "Date Modified" : "2018-05-30 09:40:00 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Loss Location (UK)",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><% if(!getValue(\"primLossLoc\/\/Address1\").equals(\"\")) { %> <%=getValue(\"primLossLoc\/\/Address1\")%> <% if(!getValue(\"primLossLoc\/\/Address2\").equals(\"\")) { %><%= getValue(\"primLossLoc\/\/Address2\")%><% } %><% if(!getValue(\"primLossLoc\/\/Address3\").equals(\"\")) { %> <%= getValue(\"primLossLoc\/\/Address3\")%><% } %> <%=getValue(\"primLossLoc\/\/Address5\")%> <%=getValue(\"primLossLoc\/\/PostCode\")%> <%=getValue(\"Country\/\/InstanceName\")%> <% } else {%>Not Known<% } %>",
+          "Date Modified" : "2018-05-30 09:39:50 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:39:42 +0100"
+        }
+      ],
+      "Tags" : [
+        "Loss",
+        " Location",
+        "Situation"
+      ]
+    },
+    {
+      "Date Created" : "2019-02-15 10:37:58 +0000",
+      "Date Modified" : "2019-02-15 10:38:11 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "Date of Loss",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><% if(!getValue(\"DateofLossNarrative\").equals(\"\")) { %><%= getValue(\"DateofLossNarrative\")%> - <% } else {%><% } %><%= getDateValue(\"OCCase\/\/EffectiveDate\")%><% if(!getDateValue(\"OCCase\/\/ToDate\").equals(\"\")) { %> to <%= getDateValue(\"OCCase\/\/ToDate\")%><% } else {%> <% } %>",
+          "Date Modified" : "2019-02-15 10:38:30 +0000",
+          "Note" : "Date of Loss",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2019-02-15 10:37:58 +0000"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        " Date",
+        " Loss"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-11 09:19:45 +0100",
+      "Date Modified" : "2018-05-11 09:20:13 +0100",
+      "Folder" : "Mac Terminal",
+      "Title" : "Shutdown Systems",
+      "Fragments" : [
+        {
+          "Content" : "sudo shutdown -h now \n\nTo restart:\n\nsudo reboot\n\n\nAnd one more command for restart:\n\nsudo shutdown -r now\n\n\nAnother way as one of the user mentioned.\n\nFor shutdown:\n\nsudo halt\nor:\n\nsudo init 0 \nFor restart:\n\nsudo init 6\nYou can get more info on the shutdown command by using one of the following:\n\nshutdown --help\nman shutdown\n",
+          "Date Modified" : "2018-05-11 09:26:18 +0100",
+          "Note" : "To shutdown the system:",
+          "Title" : "Fragment",
+          "Language" : "AppleScript",
+          "Date Created" : "2018-05-11 09:19:45 +0100"
+        }
+      ],
+      "Tags" : [
+        "Mac",
+        " Terminal"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-16 14:43:19 +0100",
+      "Date Modified" : "2018-05-16 14:43:38 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "<%=setLevel()%> Usage",
+      "Fragments" : [
+        {
+          "Content" : "If you do a setlevel with something in it, the code will only look at the selected part on all next getValue operations\n \nYou use this for the different party-case-roles for example: you first do a setLevel to select for instance the Insurer, and then you can do getValue to retrieve the Insurer’s address. The code will only look for address tags within the selected Insurer part of the xml\n \nYou need the setLevel() when done with that selection, in other words when your next getValue is applicable to the full structure again\n \nSo setLevel (“something”) at some point needs a closing setLevel(). Doing extra setLevel()’s doesn’t make sense\n \nstartList(“Something”) and endList() do the same but with the extra functionality of looping through the rows\n\n---\nsetLevel() is needed AFTER you have done a setLevel(“some subset of the xml”) and retrieved some specific values\nA setLevel pair allows for any next getValue to have a shorter path and\/or to make sure it retrieves exactly what you want\n \n<%=setLevel(“OCPartyCaseRole[definedRole\/\/RoleName=‘Claimant’]”)%>\n<%=getValue(“Fullname”)%>\n<%=setLevel()>\n \nWill return the Fullname of the Claimant, as it searches only within XML part dealing with the Claimant\n \nJust\n<%=getValue(“Fullname”)%>\n \nWill return the first Fullname within the complete model, which could be anything\n \nYou need a closing setLevel() to reset to the complete XML so your next getValue can retrieve something again by searching the complete XML\n \nNot sure exactly about your example, but Insured, Broker, Claimant are different party case roles so they likely need a setLevel start and end\nSituation of Loss, Policy, Date of Loss, Cause probably not as these are unique within the xml\n\n",
+          "Date Modified" : "2018-05-16 14:43:45 +0100",
+          "Note" : "When to use setLevel",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-16 14:43:19 +0100"
+        }
+      ],
+      "Tags" : [
+        "setLevel"
+      ]
+    },
+    {
+      "Date Created" : "2018-11-16 11:52:07 +0000",
+      "Date Modified" : "2018-11-16 11:52:12 +0000",
+      "Folder" : "Mac Terminal",
+      "Title" : "Start Filemaker Server",
+      "Fragments" : [
+        {
+          "Content" : "sudo launchctl start com.filemaker.fms",
+          "Date Modified" : "2018-11-16 11:52:32 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-11-16 11:52:07 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2017-12-27 10:08:01 +0000",
+      "Date Modified" : "2018-05-17 11:32:25 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "IF..TRUE..ELSE",
+      "Fragments" : [
+        {
+          "Content" : "Currency Evaluation\n\n<% if(getValue(\"Field1\/\/InstanceName\").equals(\"EUR\") && getValue(\"Field2\/\/InstanceName\").equals(\"EUR\")) {%>\n                                                <%=getValue(\"Field3\/\/InstanceName\").substring(0, 5)%>\n                                <%} else { %>\n                                                <%=getValue(\"Field4\/\/InstanceName\").substring(0, 3)%>                          \n                                <%}        %>\n\nIF = GBP then £\nSTART        <% \nJAVA        if\nFINEOS        (getValue(\"Currency\/\/InstanceName\").equals(\"GBP\"))\nVALUE 1        { %>£<%}\nJAVA        else \nFINEOS        {%><%=getValue(\"Currency\/\/InstanceName\")%><% }\nEND        %>    \n \nSTART        <% \nJAVA        if\nFINEOS        (getValue(\"Currency\/\/InstanceName\").equals(\"GBP\"))\nVALUE 1        { %>£<%}\nJAVA        else if\nFINEOS        (getValue(\"Currency\/\/InstanceName\").equals(\"USD\"))\nVALUE 1        { %>US$<%}\nJAVA        else\n{%><%=getValue(\"Currency\/\/InstanceName\")%><% }\nEND        %>   \n\nCrew Licence NOT 800000001\n\n<% if(applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormFieldEvent\",\"CrewLicence\").equals(\"80000001\")) { %>\nYes\n<% } else {%>\nNo\n<% } %>\n\nIf no Secondary Adjuster\n\n<%=setLevel()%><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Secondary Adjuster']\")%><%if(getValue(\"LastName\").equals(\"\")){%><%}else {%><%=getValue(\"FirstNames\")%> <%=getValue(\"LastName\")%> |McLarens <%=getValue(\"PreferredName\")%>\n<%=getValue(\"Occupation\/\/InstanceName\")%><%}%>\n\n",
+          "Date Modified" : "2018-05-17 11:32:06 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2017-12-27 10:08:01 +0000"
+        }
+      ],
+      "Tags" : [
+        "if",
+        " else",
+        "Adjuster",
+        "currency"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:40:11 +0100",
+      "Date Modified" : "2018-05-30 09:40:32 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Currency",
+      "Fragments" : [
+        {
+          "Content" : "<%=getValue(\"Currency\/\/InstanceName\")%>",
+          "Date Modified" : "2018-05-30 09:40:20 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:40:11 +0100"
+        }
+      ],
+      "Tags" : [
+        "Reserve",
+        " Currency"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-16 11:37:07 +0100",
+      "Date Modified" : "2018-05-16 11:37:24 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "REMAINING INDEMNITY RESERVE",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResNet\/Amount\")%>",
+          "Date Modified" : "2018-05-16 11:37:42 +0100",
+          "Note" : "McLarens US Financials",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-16 11:37:07 +0100"
+        }
+      ],
+      "Tags" : [
+        "US",
+        " Mclarens",
+        " Financials"
+      ]
+    },
+    {
+      "Date Created" : "2018-08-01 09:29:29 +0100",
+      "Date Modified" : "2018-08-01 09:30:00 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Change Date format dependin on Region",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><%if(getValue(\"Region\/\/InstanceName\").equals(\"North America\")) { %>July 31, 2018<%} else {%>31 July 2018<%} %>\n",
+          "Date Modified" : "2018-08-01 09:30:18 +0100",
+          "Note" : "Only works with Word Save Date field",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-08-01 09:29:29 +0100"
+        }
+      ],
+      "Tags" : [
+        "Date",
+        " US",
+        " UK",
+        " Aviation",
+        " Fineos"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-23 17:28:45 +0100",
+      "Date Modified" : "2018-09-23 17:28:58 +0100",
+      "Folder" : "VBA",
+      "Title" : "Get Aviation Logo",
+      "Fragments" : [
+        {
+          "Content" : "Sub GetPictureAviation()\n'\n' GetPictureAviation Macro\n'\n'\n    If ActiveWindow.View.SplitSpecial <> wdPaneNone Then\n        ActiveWindow.Panes(2).Close\n    End If\n    If ActiveWindow.ActivePane.View.Type = wdNormalView Or ActiveWindow. _\n        ActivePane.View.Type = wdOutlineView Then\n        ActiveWindow.ActivePane.View.Type = wdPrintView\n    End If\n    ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader\n    Selection.Fields.Add Range:=Selection.Range, Type:=wdFieldEmpty, Text:= _\n        \"INCLUDEPICTURE  \"\"http:\/\/mp3quiz.co.uk\/wp-content\/uploads\/Aviation.png\"\" \" _\n        , PreserveFormatting:=True\n    Selection.InlineShapes(1).Fill.Visible = msoFalse\n    Selection.InlineShapes(1).Fill.Solid\n    Selection.InlineShapes(1).Fill.Transparency = 0#\n    Selection.InlineShapes(1).Line.Weight = 0.75\n    Selection.InlineShapes(1).Line.Transparency = 0#\n    Selection.InlineShapes(1).Line.Visible = msoFalse\n    Selection.InlineShapes(1).LockAspectRatio = msoTrue\n    Selection.InlineShapes(1).Height = 67.7\n    Selection.InlineShapes(1).Width = 273.6\n    Selection.InlineShapes(1).PictureFormat.Brightness = 0.5\n    Selection.InlineShapes(1).PictureFormat.Contrast = 0.5\n    Selection.InlineShapes(1).PictureFormat.ColorType = msoPictureAutomatic\n    Selection.InlineShapes(1).PictureFormat.CropLeft = 0#\n    Selection.InlineShapes(1).PictureFormat.CropRight = 0#\n    Selection.InlineShapes(1).PictureFormat.CropTop = 0#\n    Selection.InlineShapes(1).PictureFormat.CropBottom = 0#\nEnd Sub",
+          "Date Modified" : "2018-09-23 17:28:59 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-23 17:28:45 +0100"
+        }
+      ],
+      "Tags" : [
+        "VBA",
+        "Word"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-23 18:16:06 +0100",
+      "Date Modified" : "2018-05-23 18:16:26 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "CLAIM REFERENCE (US)",
+      "Fragments" : [
+        {
+          "Content" : "<%if(getBooleanValue(“CoInsured”).equals(“Yes”)){%>Per Attached<%}else if(getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Client Claim Reference']\/\/Value\").equals(\"\")){%>Please Provide<%}else {%><%=getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Client Claim Reference']\/\/Value\")%><%}%>\n",
+          "Date Modified" : "2018-05-23 18:20:00 +0100",
+          "Note" : "Claim Reference checking Co-Insured or \"\"",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2018-05-23 18:16:06 +0100"
+        }
+      ],
+      "Tags" : [
+        "Claim Ref",
+        "Claim Reference"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:45:12 +0100",
+      "Date Modified" : "2018-05-30 09:45:37 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "PAYMENT REQUESTED (UK)",
+      "Fragments" : [
+        {
+          "Content" : "\n<% if(!getDecimalValue(\"MCLFinancialsTable\/aprClmResPNow\/Amount\").equals(\"0.00\")){ %><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResPNow\/Amount\")%><% } else {%>Nil<% } %><%=setLevel()%>",
+          "Date Modified" : "2018-05-30 09:45:30 +0100",
+          "Note" : "Substitue '0.00' for \"Nil\" ",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:45:12 +0100"
+        }
+      ],
+      "Tags" : [
+        "Payment",
+        " Requested"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-27 10:08:10 +0100",
+      "Date Modified" : "2018-09-27 10:08:36 +0100",
+      "Folder" : "Uncategorized",
+      "Title" : "Catastrophe Tags",
+      "Fragments" : [
+        {
+          "Content" : "For description\n<%=getValue(\"OCCatastrophe\/\/Description\")%>\n \nFor ID\n<%=getValue(\"OCCatastrophe\/\/CodeId\")%>",
+          "Date Modified" : "2018-09-27 10:08:48 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-27 10:08:10 +0100"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        "Catastrophe",
+        " ID",
+        " Description"
+      ]
+    },
+    {
+      "Date Created" : "2018-10-17 12:25:53 +0100",
+      "Date Modified" : "2018-10-17 12:26:13 +0100",
+      "Folder" : "Superbase",
+      "Title" : "Products Validation",
+      "Fragments" : [
+        {
+          "Content" : "1.\nLOOKUP (MyMusicQuizPage.PRODUCTS,Webpage.WEBPAGES) ELSE REQUEST \"\",\"\",20,,MyMusicQuizPage.PRODUCTS,72,Webpage.WEBPAGES\n\u000b\n\u000b\n2\nLOOKUP (MyMusicQuizP_01.PRODUCTS,Webpage.WEBPAGES) ELSE REQUEST \"\",\"\",20,,MyMusicQuizP_01.PRODUCTS,72,Webpage.WEBPAGES\n",
+          "Date Modified" : "2018-10-17 12:26:14 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-10-17 12:25:53 +0100"
+        }
+      ],
+      "Tags" : [
+        "Superbase"
+      ]
+    },
+    {
+      "Date Created" : "2018-06-04 09:30:47 +0100",
+      "Date Modified" : "2018-06-04 09:30:52 +0100",
+      "Folder" : "Superbase",
+      "Title" : "Password3",
+      "Fragments" : [
+        {
+          "Content" : "STATUS ON \n OPEN FILE \"password\"\n\n FOR a1% = 48 TO 122\n    IF a1% > 57 AND a1% < 65 THEN a1% = 65\n    IF a1% > 90 AND a1% < 95 THEN a1% = 95\n    a1$ = CHR$ (a1%)\n FOR a2% = 48 TO 122\n    IF a2% > 57 AND a2% < 65 THEN a2% = 65\n    IF a2% > 90 AND a2% < 95 THEN a2% = 95\n    a2$ = CHR$ (a2%)\n FOR a3% = 48 TO 122\n    IF a3% > 57 AND a3% < 65 THEN a3% = 65\n    IF a3% > 90 AND a3% < 95 THEN a3% = 95\n    a3$ = CHR$ (a3%)\n    pw$ = a3$ + a2$ + a1$\n    GOSUB test\nNEXT a3%:NEXT a2%:NEXT a1%\n\ntest: \n   cnt&% = cnt&% + 1\n   cnt$ = STR$ (cnt&%,\"999\")\n   statustext = \"Attempt: \" + cnt$ + \". Trying password \" + pw$\n   op$ = \"TEST123;\" + pw$\n   st$ = \"\"\n   SET ERROR OFF ALL \n   OPEN FILE op$\n   SELECT FIRST \n   st$ = sender\n   IF st$ > \"\" THEN \n        FILE \"PASSWORD\"\n        BLANK \n        pw = pw$\n        STORE \n        VIEW \n        END \n    END IF \n    SET ERROR ON ALL \n    RETURN \n",
+          "Date Modified" : "2018-06-04 09:32:29 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-06-04 09:30:47 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:41:04 +0100",
+      "Date Modified" : "2018-05-30 09:41:17 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "CAUSE",
+      "Fragments" : [
+        {
+          "Content" : "<%=getValue(\"EventCause\/\/InstanceName\")%> - <%=getValue(\"EventMannerNotes\")%>",
+          "Date Modified" : "2018-05-30 09:41:22 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2018-05-30 09:41:04 +0100"
+        }
+      ],
+      "Tags" : [
+        "Cause"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-19 10:20:29 +0100",
+      "Date Modified" : "2018-09-19 10:20:51 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Find and Mark Duplicates",
+      "Fragments" : [
+        {
+          "Content" : "Show All Records\nSort Records [Specify sort order, Perform without dialog] Sort by Client ID in ascending order\nGo to Record\/Request\/Page [First]\nReplace Field Contents [Perform without dialog, Specify target field 'Mark', \" \"]\nLoop\n  Set Variable[$id,'ClientID']\n  Go to Record\/Request\/Page [Next, Exit after last]\n  If ['$id = ClientID']\n     Set Field ['Mark', '\"X\"']\n  Else\n     Set Variable[$id,'ClientID']\n  End If\nEnd Loop\nPerform Find [Restore] Find records when Mark = X\n\n\nWhen you perform the script above, the following actions occur:\n1. The script find all the records in your databse ans sorts the data by the unique identifer field so that the records with the unique identifier are all grouped together.  In the case of the exampe above, the data is sorted by the ClientID field.\n2. Starting with the first record, the script sets a varaible ($id) to the value in the ClientID of the current record\n3. The script goes to the next record and compares the value in ClientID to the value stored in the $id variable.  If the values match then the record is assumed to be a duplicate and the script marks the record by putting an \"x\" in the field called \"Mark\"\n4. The scrpt loops through the remaining records until it reaches the last record in the file.\n5. The script finds all records with an \"x\" in the Mark field, and then displays the found set of the duplicate records.\nDeleting the duplicate records\nTo delete the duplicate records you can manually delete the found set using the Delete Found Records command from the Records menu after running the Find Duplicates script. This way you can control the deleting of records before making any mistakes. If your script works properly to find the duplicate records, you can add the Delete All Records command as the last step to your script. This will automate the entire process for you.\nCAUTION: You can't undo the action of deleting records. Use of this script to delete duplicate records should be run on a copy of your database. ALWAYS keep a backup of your database before performing a script that deletes records.\n \n\nPasted from <http:\/\/help.filemaker.com\/app\/answers\/detail\/a_id\/3441\/~\/finding-and-deleting-duplicate-records-in-filemaker-pro> \n",
+          "Date Modified" : "2018-09-19 10:21:25 +0100",
+          "Note" : "Finding and deleting duplicate records in FileMaker Pro\nThis article provide a method for identifying and deleting duplicate records from a FileMaker Pro database.  This article uses an example of a travel agency that uses FileMaker Pro file called to keep track of clients that sign up for a cruise.  Each client shoud have a unique ClientID field associated with their record in the FileMaker Pro file.  The FileMaker Pro file contains duplicate records because some clients called the travel agency to sign up, and also mailed in a registration form for the same cruise.\n1. Identify or create a unique value for each record - Your database will need a field that uniquely identifies the thing (person, object, concept, etc.) that may be duplicated.  In the example used in this article, the FileMaker Pro file contains records of clients who register for a seminar. Each client has a unique identification number, the \"ClientID\" field. Some clients have more than one record (the duplicates we are trying to identify), but those records should all have the same ClientID.\r\rData like social security numbers or even email addresses can be used to uniquely identify a record in a database.  If your database does not have a unique identification field, define a calculation field to create one from existing fields. For example, combine first name, last name, and street name to create a unique identifier for each client.\n2. Add a field to mark when a duplicate record has been identified - Add a text field, titled \"Mark.\" When the script finds a duplicate record, it places an X in this field to mark the record.\nDisplay the Mark field - Add the Mark field to a layout.\r",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-19 10:20:29 +0100"
+        }
+      ],
+      "Tags" : [
+        "Filemaker",
+        "Duplicates"
+      ]
+    },
+    {
+      "Date Created" : "2019-02-20 19:38:28 +0000",
+      "Date Modified" : "2019-02-20 19:38:55 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "McLarensOne Telephone Formatting",
+      "Fragments" : [
+        {
+          "Content" : "if((pPhone.IntCode) = \"971\") \n\nreturn \"+\" + pPhone.IntCode + \" (0)\" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 1 , 3 , 4)\n\nelseif((pPhone.IntCode) = \"973\") \n\nreturn \"+\" + pPhone.IntCode + \" \" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 3 , 5 , 0)\n\nelseif((pPhone.IntCode) = \"974\") \n\nreturn \"+\" + pPhone.IntCode + \" \" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 4 , 4 , 0)\n\nelseif((pPhone.TelephoneNo) = \"6650635\") \n\nreturn \"+\" + pPhone.IntCode + \" (12) \" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 3 , 4 , 0)\n\nelseif((pPhone.TelephoneNo) = \"4602355\") \n\nreturn \"+\" + pPhone.IntCode + \" (11) \" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 3 , 4 , 0)\n\nelseif((pPhone.TelephoneNo) = \"8820050\") \n\nreturn \"+\" + pPhone.IntCode + \" (13) \" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 3 , 4 , 0)\n\nelseif(Length (pPhone.IntCode) > 0) \n\nif(StartsWith (pPhone.TelephoneNo , \"0\")) \n\nreturn \"+\" + pPhone.IntCode + \" (0)\" + FormatPhoneRule (GetSubstringFromIndex (pPhone.TelephoneNo , 1) , \" \" , 3 , 3 , 0)\n\nelse \n\nreturn \"+\" + pPhone.IntCode + \" \" + FormatPhoneRule (pPhone.TelephoneNo , \" \" , 3 , 3 , 0)\n\nendif \n\nelse \n\nreturn FormatPhoneRule (pPhone.TelephoneNo , \" \" , 3 , 3 , 0)\n\nendif",
+          "Date Modified" : "2019-02-20 19:39:00 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Java",
+          "Date Created" : "2019-02-20 19:38:28 +0000"
+        }
+      ],
+      "Tags" : [
+        "Phone",
+        " format",
+        " International",
+        " Fineos"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:45:46 +0100",
+      "Date Modified" : "2018-05-30 09:46:29 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "PAYMENT RECOMMENDED",
+      "Fragments" : [
+        {
+          "Content" : "<% if(!getDecimalValue(\"MCLFinancialsTable\/aprClmResPtDt\/Amount\").equals(\"0.00\")){ %><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResPtDt\/Amount\")%><% } else {%>Nil<% } %>\n\n",
+          "Date Modified" : "2018-05-30 09:46:09 +0100",
+          "Note" : "Substitue '0.00' for \"Nil\" ",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:45:46 +0100"
+        }
+      ],
+      "Tags" : [
+        "Payment",
+        " Requested"
+      ]
+    },
+    {
+      "Date Created" : "2017-12-27 10:07:16 +0000",
+      "Date Modified" : "2017-12-27 10:07:37 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "Tag Notes (Various)",
+      "Fragments" : [
+        {
+          "Content" : "PREVIOUS \n<% if(!getDecimalValue(\"RequestedNow\").equals(\"0.00\")){ %><%=getValue(\"RequestedNow\")%><% } else {%>Nil<% } %>\n\nRESERVE\n<% if(!getDecimalValue(\"ReservePosition\").equals(\"0.00\")){ %><%=getDecimalValue(\"ReservePosition\")%><% } else {%>Nil<% } %>\n\nDEDUCTIBLE\n<% if(!getDecimalValue(\"ApplExcess\/\/Amount\").equals(\"0.00\")){ %><%=getValue(\"ApplExcess\/\/Amount\")%><% } else {%>Nil<% } %>\nWAS\n<%=getDecimalValue(“ApplExcess\/\/Amount”)%>\n\nEMPTY LOSS LOCATION\n<%=setLevel()%><% if(!getValue(\"primLossLoc\/\/Address1\").equals(\"\")) { %> <%=getValue(\"primLossLoc\/\/Address1\")%> <% if(!getValue(\"primLossLoc\/\/Address2\").equals(\"\")) { %><%= getValue(\"primLossLoc\/\/Address2\")%><% } %><% if(!getValue(\"primLossLoc\/\/Address3\").equals(\"\")) { %> <%= getValue(\"primLossLoc\/\/Address3\")%><% } %> <%=getValue(\"primLossLoc\/\/Address5\")%> <%=getValue(\"primLossLoc\/\/PostCode\")%> <%=getValue(\"Country\/\/InstanceName\")%>  <% } else {%>Not Known<% } %>\n\nLOSS DATE\n<%=setLevel()%><% if(!getValue(\"DateofLossNarrative\").equals(\"\")) { %><%= getValue(\"DateofLossNarrative\")%> - <% } else {%><% } %><%= getDateValue(\"OCCase\/\/EffectiveDate\")%><% if(!getDateValue(\"OCCase\/\/ToDate\").equals(\"\")) { %> to <%= getDateValue(\"OCCase\/\/ToDate\")%><% } else {%> <% } %>\n\nDamage \/ Injury:\t<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormEnumEvent\",\"DamageType\")%> \/ <%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormEnumEvent\",\"InjuryType\")%>\n\nCircumstances\t<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormFieldEvent\",\"Circumstances\")%>\n\n<%=getValue(\"EventCause\/\/InstanceName\")%>\n<%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\")%>\n<%=setLevel()%><%=getValue(\"BillingCurrency\/\/InstanceName\")%><%= getDecimalValue(\"GrossServiceCost\")%>\n\n\n<%=getValue(\"EventCause\/\/InstanceName\")%>\n<%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\")%>\n\nAdjuster Fees\n<%=setLevel()%><%=getValue(\"BillingCurrency\/\/InstanceName\")%><%= getDecimalValue(\"GrossServiceCost\")%>\n\nADJUSTED LOSS\t[Gross Reserve] + [Non-Claim Reserve Total] - [Total Excess]\t<%=getValue(\"Currency\/\/InstanceName\")%> <%=getDecimalValue(\"GrossServiceCost\")%> \nPAYMENT RECOMMENDED\tTotal Claim Costs 'Payment Now Requested'\t<%=getValue(\"Currency\/\/InstanceName\")%> <%=getDecimalValue(\"RequestedNow\")%> \n\nTOTAL RESERVE\t[Gross Reserve] + [Non-Claim Reserve Total]\t<%= getDecimalValue(\"ReservePosition\")%>\nAMOUNT OF CLAIM\tAmount Claimed\t<%=getValue(\"ClaimValue\/CurrencyCode\")%> <%=getDecimalValue(\"ClaimValue\/Amount\")%> \n\nDate Received\t<%=getDateValue(“OCCase\/\/DateCreated”)%>\n",
+          "Date Modified" : "2018-05-30 09:49:07 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2017-12-27 10:07:16 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2017-12-29 09:13:31 +0000",
+      "Date Modified" : "2017-12-29 09:13:40 +0000",
+      "Folder" : "Mac Terminal",
+      "Title" : "Terminal Commands",
+      "Fragments" : [
+        {
+          "Content" : "To shutdown the system:\n\nsudo shutdown -h now \nTo restart:\n\nsudo reboot\n& one more command for restart:\n\nsudo shutdown -r now\nAnother way as one of the user mentioned.\n\nFor shutdown:\n\nsudo halt\nor:\n\nsudo init 0 \nFor restart:\n\nsudo init 6\nYou can get more info on the shutdown command by using one of the following:\n\nshutdown --help\nman shutdown\n",
+          "Date Modified" : "2017-12-29 09:13:54 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2017-12-29 09:13:31 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-23 12:41:08 +0100",
+      "Date Modified" : "2018-05-23 12:42:15 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "General Creation Date and multiple tags",
+      "Fragments" : [
+        {
+          "Content" : "\nGeneralCreation Date<%=getWordDocCreationDate(pageContext)%>Document Type<%= getBusinessType()%>Current User<%=getCurrentUserID()%>\nClaimCase Number<%=getValue(\"VisionCaseNumber\")%>Business Unit<%=getValue(\"OCCaseType\/Context\")%>Line of Business<%=getValue(\"lineOfBusiness\/\/InstanceName\")%>Service Type<%=getValue(\"ClaimType\/\/InstanceName\")%>Claim Type (Peril)<%=getValue(\"EventCause\/\/InstanceName\")%>Claim Type (Client Specific Peril)<%=getValue(\"ClientSpecificPeril\/\/InstanceName\")%>Case File Name<%=getValue(\"OCCase\/\/Description\")%>Description of Cause<%=getValue(\"EventMannerNotes\")%>Description of Damage<%=getValue(\"AdditionalInformation\")%>Classification<%=getValue(\"Classification\/\/InstanceName\")%>Delegated Authority<%=getValue(\"DelegatedAuthority\")%>Scheme<%=getValue(\"Scheme\/\/InstanceName\")%>Catastrophe<%=getValue(\"OCCatastrophe\/\/Description\")%>Loss Date<%=getDateValue(\"OCCase\/\/EffectiveDate\")%><%=getDateValue(\"OCCase\/\/ToDate\")%>Subject to Litigation<%=getValue(\"SubjectToLitigation\")%>Suspicious Activity<%=getValue(\"SuspiciousActivity\")%>Limitation Date<%=getDateValue(\"StatuteOfLimitationDate\")%>% Complete<%=getDecimalValue(\"PercentageComplete\")%>Client Reference<%=getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Client Claim Reference']\/\/Value\")%>\nReferences<%=startList(\"OCCaseAlias\")%><%=getValue(\"aliasName\")%><%=getValue(\"Value\")%><%=endList()%>\nSituation of LossAddress<%=getValue(\"primLossLoc\/\/Address1\")%><% if(!getValue(\"primLossLoc\/\/Address2\").equals(\"\")) { %>\n<%= getValue(\"primLossLoc\/\/Address2\")%><% } %><% if(!getValue(\"primLossLoc\/\/Address3\").equals(\"\")) { %>\n<%= getValue(\"primLossLoc\/\/Address3\")%><% } %>Postcode\/City<%=getValue(\"primLossLoc\/\/PostCode\")%> <%=getValue(\"primLossLoc\/\/Address5\")%>Country<%=getValue(\"primLossLoc\/\/Country\/\/InstanceName\")%>\nAviationAircraft Registration Number<%=getValue(\"AircraftRegNumber\")%>Aircraft Type<%=getValue(\"AircraftType\")%>Aircraft Serial Number<%=getValue(\"AircraftSerialNo\")%>Engine Type<%=getValue(\"EngineType\")%>Engine Serial Number<%=getValue(\"EngineSerialNo\")%>\nRecipientName<%=getFirstToPartyFullName(pageContext)%>Address<%=getFirstToPartyAddressLine1(pageContext)%><% if(!getFirstToPartyAddressLine2(pageContext).equals(\"\")) { %>\n<%=getFirstToPartyAddressLine2(pageContext)%><% } %><% if(!getFirstToPartyAddressLine3(pageContext).equals(\"\")) { %>\n<%=getFirstToPartyAddressLine3(pageContext)%><% } %>Postcode\/City<%=getFirstToPartyPostCode(pageContext)%> <%=getFirstToPartyAddressLine5(pageContext)%>Country<%=getFirstToPartyCountry (pageContext)%> \nLead Adjuster <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Lead Adjuster']\")%>Name<%=getValue(\"Fullname\")%>Office Address<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress1Event\")%><%if(!applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress2Event\").equals(\"\")) { %>\n<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress2Event\")%><% } %><% if(!applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress3Event\").equals(\"\")) { %>\n<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress3Event\")%><% } %>Office Postcode\/city<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficePostCodeEvent\")%> <%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeCityEvent\")%>Office Phone<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficePhoneEvent\")%>Office Email<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeEmailEvent\")%>Adjuster Code<%=getValue(\"AdjusterCode\")%>Adjuster Email<%=getValue(\"EmailAddress\")%>Adjuster Mobile<%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%><%=setLevel()%>\n\nPolicy Policy Number<%=getValue(\"ReferenceNumber\")%>\tCo-Insured<%=getValue(\"CoInsured\")%>\t\t<%=startList(\"OCPartyCaseRole[definedRole\/\/RoleName='Insurer']\")%>Insurer<%=getValue(\"Fullname\")%>\tAddress<%=getValue(\"Address1\")%><% if(!getValue(\"Address2\").equals(\"\")) { %>\n<%= getValue(\"Address2\")%><% } %><% if(!getValue(\"Address3\").equals(\"\")) { %>\n<%= getValue(\"Address3\")%><% } %>\tPostcode\/City<%=getValue(\"PostCode\")%> <%=getValue(\"Address5\")%>\tCountry<%=getValue(\"Country\/\/InstanceName\")%>\tLiability %<%=getDecimalValue(\"PercentageOfLiability\")%>\tPrevious Paid Reserve<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ClaimCostPreviousEvent\",getValue(\"PercentageOfLiability\")),2)%>\tPay Now Reserve<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ClaimCostPayNowEvent\",getValue(\"PercentageOfLiability\")),2)%>\tOutstanding Reserve<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ClaimCostOutstandingEvent\",getValue(\"PercentageOfLiability\")),2)%>\tPrevious Paid Service Cost<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ServiceCostPreviousEvent\",getValue(\"PercentageOfLiability\")),2)%>\tPay Now Service Cost<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ServiceCostPayNowEvent\",getValue(\"PercentageOfLiability\")),2)%>\tOutstanding Service Cost<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ServiceCostOutstandingEvent\",getValue(\"PercentageOfLiability\")),2)%>\tLiability %<%=getDecimalValue(\"PercentageOfLiability\")%><%=endList()%>\nInsured <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Insured']\")%>Name<%=getValue(\"Fullname\")%>Address<%=getValue(\"Address1\")%><% if(!getValue(\"Address2\").equals(\"\")) { %>\n<%= getValue(\"Address2\")%><% } %><% if(!getValue(\"Address3\").equals(\"\")) { %>\n<%= getValue(\"Address3\")%><% } %>Postcode\/City<%=getValue(\"PostCode\")%> <%=getValue(\"Address5\")%>Country<%=getValue(\"Country\/\/InstanceName\")%>Email<%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%><%=setLevel()%>\n\nInstructing Officer <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Instructing Officer']\")%>Name<%=getValue(\"Fullname\")%>Email<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%><%=setLevel()%>\n\nHandling Officer <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Handling Officer']\")%>Name<%=getValue(\"Fullname\")%>Email<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%><%=setLevel()%>\n\nClient <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Client']\")%>Name<%=getValue(\"Fullname\")%>Email<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%><%=setLevel()%>\n\nClaimant <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Claimant']\")%>Name<%=getValue(\"Fullname\")%>Email<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%><%=setLevel()%>\n\nTechnical ReportTitle<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.TechnicalReportTitleEvent\")%>Reporting Status<%=getValue(\"ReportingStatus\/\/InstanceName\")%>Reporting Status Notes<%=getValue(\"ReportStAddInf\")%>Settlement Date<%=getDateValue(\"SettlementDate\")%>Resolved Date<%=getDateValue(\"ClaimResolvedDate\")%>Project Currency<%=getValue(\"ProjectCurrency\/\/InstanceName\")%>Billing Currency<%=getValue(\"BillingCurrency\/\/InstanceName\")%>Claimed Value<%=getDecimalValue(\"ClaimValue\/Amount\")%> <%=getValue(\"ClaimValue\/CurrencyCode\")%>Overstatement Saving<%=getDecimalValue(\"OverstatementSaving\/Amount\")%> <%=getValue(\"OverstatementSaving\/CurrencyCode\")%>Applicable Excess<%=getDecimalValue(\"ApplExcess\/Amount\")%> <%=getValue(\"ApplExcess\/CurrencyCode\")%>Applicable Excess Notes<%=getValue(\"ApplExcessDesc\")%>Repudiation Reason<%=getValue(\"RepudiationReason\")%>Repudiation Date<%=getDateValue(\"DateOfRepudiation\")%>Payment Settled<%=getValue(\"PaymentSettledIndicator\")%>Payment Notes<%=getValue(\"PaymentNotes\")%>\n<% if(applyEventToBusinessEntity(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportFinancialsIncludedEvent\").equals(\"\")) {%>\nTotalsPreviously RecommendedReserve<%=getDecimalValue(\"MCLFinancialsTable\/aprClmResPtDt\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprClmResPtDt\/CurrencyCode\")%>Non-Claim<%=getDecimalValue(\"MCLFinancialsTable\/aprSrvResPtDt\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprSrvResPtDt\/CurrencyCode\")%>Payment NowReserve<%=getDecimalValue(\"MCLFinancialsTable\/aprClmResPNow\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprClmResPNow\/CurrencyCode\")%>Non-Claim<%=getDecimalValue(\"MCLFinancialsTable\/aprSrvResPNow\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprSrvResPNow\/CurrencyCode\")%>OutstandingReserve<%=getDecimalValue(\"MCLFinancialsTable\/aprClmResNet\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprClmResNet\/CurrencyCode\")%>Non-Claim<%=getDecimalValue(\"MCLFinancialsTable\/aprSrvResNet\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprSrvResNet\/CurrencyCode\")%>\nClaim Cost CategorySum InsuredPrevious\tPayment Now\tOutstanding<%=startList(\"MCLFinancialsTable\/\/MCLFinancialsClaimCost\")%><%=getValue(\"ReserveType\/\/InstanceName\")%><%=getDecimalValue(\"SumInsured\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"PaidToDate\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"PayNow\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"AmountOutstanding\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=endList()%>\nExcess CategoryGross ExcessPrevious\tDeducted Now\tOutstanding<%=startList(\"MCLFinancialsTable\/\/MCLFinancialsAppliedExcess\")%><%=getValue(\"DeductibleType\/\/InstanceName\")%><%=getDecimalValue(\"GrossExcess\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"PreviouslyDeducted\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"DeductNow\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"AmountOutstanding\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=endList()%>\nService Cost CategoryGross AmountPrevious\tPayment Now\tOutstanding<%=startList(\"MCLFinancialsTable\/\/MCLFinancialsServiceCost\")%><%=getValue(\"ReserveType\/\/InstanceName\")%><%=getDecimalValue(\"GrossServiceCost\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"PaidToDate\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"RequestedNow\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=getDecimalValue(\"AmountOutstanding\")%> <%=getValue(\"Currency\/\/InstanceName\")%><%=endList()%><%}%>\n\n\n\n<% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968001\").equals(\"\")) {%>\nCIRCUMSTANCES\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968002\").equals(\"\")) {%>\nPOLICY LIABILITY\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968003\").equals(\"\")) {%>\nPLANNED ACTION\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968004\").equals(\"\")) {%>\nTHIRD PARTY ASPECT\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968005\").equals(\"\")) {%>\nATTACHMENTS\nThis section needs to be populated\n<%}%>\n\n\n\nAdjusters <%=startList(\"OCPartyCaseRole\")%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext),\"McLarens.DocumentTags.AdjusterIncludedEvent\",getValue(\"partyWithRole\/\/OID\")).equals(\"\")) {%>Role<%=getValue(\"definedRole\/\/RoleName\")%>Name<%=getValue(\"Fullname\")%>Signature<%=getUserSignatureImage(pageContext, getValue(\"UserID\"))%>Adjuster Code<%=getValue(\"AdjusterCode\")%><%}%><%=endList()%>\n\n",
+          "Date Modified" : "2018-05-23 12:42:26 +0100",
+          "Note" : "Mutiple Tags to be separated",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-23 12:41:08 +0100"
+        }
+      ],
+      "Tags" : [
+        "Tags",
+        "General Creation DAte",
+        "Fineos"
+      ]
+    },
+    {
+      "Date Created" : "2017-12-27 10:08:52 +0000",
+      "Date Modified" : "2018-05-30 09:38:56 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Multiple Locations eform Field",
+      "Fragments" : [
+        {
+          "Content" : "<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormBooleanEvent\",\"FAJ\")%>\n\tFaj, Field:\t<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormFieldEvent\",\"FAJ\")%>\n\tMulti, Bool:\t<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormBooleanEvent\",\"multilocations\")%>\n\tMulti, Field:\t<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormFieldEvent\",\"multilocations\")%>\n\n\n",
+          "Date Modified" : "2018-05-30 09:39:01 +0100",
+          "Note" : "Ive added that field\nyou can see it on case 001.019333\n\nMultiple Locations:\tFaj Bool:\t",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2017-12-27 10:08:52 +0000"
+        }
+      ],
+      "Tags" : [
+        "MUltiple",
+        " Loss",
+        " Locations"
+      ]
+    },
+    {
+      "Date Created" : "2018-01-11 10:07:35 +0000",
+      "Date Modified" : "2018-01-11 10:07:58 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "Date of Visit \/ First Visit",
+      "Fragments" : [
+        {
+          "Content" : "<%=applyEventToBusinessEntity(\"claimCase\/OCCase\", \"McLarens.DocumentTags.AgreedSiteVisitDateEvent\")%>",
+          "Date Modified" : "2018-01-11 10:08:04 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-01-11 10:07:35 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2019-01-22 15:35:06 +0000",
+      "Date Modified" : "2019-01-22 15:35:27 +0000",
+      "Folder" : "Filemaker",
+      "Title" : "Filemaker Custom Location Address using Google",
+      "Fragments" : [
+        {
+          "Content" : "\"http:\/\/local.google.com\/maps?\" & \"q=\" & \/*Address=*\/ \"\" & \",\" & \/*City=*\/ \"\" & \",\" & \/*State=*\/ \"\" & \",\" & \/*Zip Code=*\/ \"\" & \",\" & \/*Country=*\/ \"\"",
+          "Date Modified" : "2019-01-22 15:35:29 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2019-01-22 15:35:06 +0000"
+        }
+      ],
+      "Tags" : [
+        "Location",
+        " Filemaker",
+        " Google"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:42:29 +0100",
+      "Date Modified" : "2018-05-30 09:42:48 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Type of Injury",
+      "Fragments" : [
+        {
+          "Content" : "<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormEnumEvent\",\"InjuryType\")%>",
+          "Date Modified" : "2018-05-30 09:42:57 +0100",
+          "Note" : "CAUSALTY EFORM",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:42:29 +0100"
+        }
+      ],
+      "Tags" : [
+        "eform",
+        "casualty",
+        " injury"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-31 15:36:24 +0100",
+      "Date Modified" : "2018-05-31 15:36:52 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Fineos Master List of Tags",
+      "Fragments" : [
+        {
+          "Content" : "General\nCreation Date\t<%=getWordDocCreationDate(pageContext)%>\nDocument Type\t<%= getBusinessType()%>\nCurrent User\t<%=getCurrentUserID()%>\n\nClaim\nCase Number\t<%=getValue(\"VisionCaseNumber\")%>\nBusiness Unit\t<%=getValue(\"OCCaseType\/Context\")%>\nLine of Business\t<%=getValue(\"lineOfBusiness\/\/InstanceName\")%>\nService Type\t<%=getValue(\"ClaimType\/\/InstanceName\")%>\nClaim Type (Peril)\t<%=getValue(\"EventCause\/\/InstanceName\")%>\nClaim Type (Client Specific Peril)\t<%=getValue(\"ClientSpecificPeril\/\/InstanceName\")%>\nCase File Name\t<%=getValue(\"OCCase\/\/Description\")%>\nDescription of Cause\t<%=getValue(\"EventMannerNotes\")%>\nDescription of Damage\t<%=getValue(\"AdditionalInformation\")%>\nClassification\t<%=getValue(\"Classification\/\/InstanceName\")%>\nDelegated Authority\t<%=getValue(\"DelegatedAuthority\")%>\nScheme\t<%=getValue(\"Scheme\/\/InstanceName\")%>\nCatastrophe\t<%=getValue(\"OCCatastrophe\/\/Description\")%>\nLoss Date\t<%=getDateValue(\"OCCase\/\/EffectiveDate\")%>\n\t<%=getDateValue(\"OCCase\/\/ToDate\")%>\nSubject to Litigation\t<%=getValue(\"SubjectToLitigation\")%>\nSuspicious Activity\t<%=getValue(\"SuspiciousActivity\")%>\nLimitation Date\t<%=getDateValue(\"StatuteOfLimitationDate\")%>\n% Complete\t<%=getDecimalValue(\"PercentageComplete\")%>\n\t\nClient Reference\t<%=getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Client Claim Reference']\/\/Value\")%>\n\nReferences\t<%=startList(\"OCCaseAlias\")%>\n<%=getValue(\"aliasName\")%>\t<%=getValue(\"Value\")%>\t<%=endList()%>\n\nSituation of Loss\nAddress\t<%=getValue(\"primLossLoc\/\/Address1\")%><% if(!getValue(\"primLossLoc\/\/Address2\").equals(\"\")) { %>\n<%= getValue(\"primLossLoc\/\/Address2\")%><% } %><% if(!getValue(\"primLossLoc\/\/Address3\").equals(\"\")) { %>\n<%= getValue(\"primLossLoc\/\/Address3\")%><% } %>\nPostcode\/City\t<%=getValue(\"primLossLoc\/\/PostCode\")%> <%=getValue(\"primLossLoc\/\/Address5\")%>\nCountry\t<%=getValue(\"primLossLoc\/\/Country\/\/InstanceName\")%>\n\nAviation\nAircraft Registration Number\t<%=getValue(\"AircraftRegNumber\")%>\nAircraft Type\t<%=getValue(\"AircraftType\")%>\nAircraft Serial Number\t<%=getValue(\"AircraftSerialNo\")%>\nEngine Type\t<%=getValue(\"EngineType\")%>\nEngine Serial Number\t<%=getValue(\"EngineSerialNo\")%>\n\nRecipient\nName\t<%=getFirstToPartyFullName(pageContext)%>\nAddress\t<%=getFirstToPartyAddressLine1(pageContext)%><% if(!getFirstToPartyAddressLine2(pageContext).equals(\"\")) { %>\n<%=getFirstToPartyAddressLine2(pageContext)%><% } %><% if(!getFirstToPartyAddressLine3(pageContext).equals(\"\")) { %>\n<%=getFirstToPartyAddressLine3(pageContext)%><% } %>\nPostcode\/City\t<%=getFirstToPartyPostCode(pageContext)%> <%=getFirstToPartyAddressLine5(pageContext)%>\nCountry\t<%=getFirstToPartyCountry (pageContext)%> \n\nLead Adjuster <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Lead Adjuster']\")%>\nName\t<%=getValue(\"Fullname\")%>\nOffice Address\t<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress1Event\")%><%if(!applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress2Event\").equals(\"\")) { %>\n<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress2Event\")%><% } %><% if(!applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress3Event\").equals(\"\")) { %>\n<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeAddress3Event\")%><% } %>\nOffice Postcode\/city\t<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficePostCodeEvent\")%> <%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeCityEvent\")%>\nOffice Phone\t<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficePhoneEvent\")%>\nOffice Email\t<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeEmailEvent\")%>\nAdjuster Code\t<%=getValue(\"AdjusterCode\")%>\nAdjuster Email\t<%=getValue(\"EmailAddress\")%>\nAdjuster Mobile\t<%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%>\n<%=setLevel()%>\n\nPolicy \t\nPolicy Number\t<%=getValue(\"ReferenceNumber\")%>\t\nCo-Insured\t<%=getValue(\"CoInsured\")%>\t\n\t\t<%=startList(\"OCPartyCaseRole[definedRole\/\/RoleName='Insurer']\")%>\nInsurer\t<%=getValue(\"Fullname\")%>\t\nAddress\t<%=getValue(\"Address1\")%><% if(!getValue(\"Address2\").equals(\"\")) { %>\n<%= getValue(\"Address2\")%><% } %><% if(!getValue(\"Address3\").equals(\"\")) { %>\n<%= getValue(\"Address3\")%><% } %>\t\nPostcode\/City\t<%=getValue(\"PostCode\")%> <%=getValue(\"Address5\")%>\t\nCountry\t<%=getValue(\"Country\/\/InstanceName\")%>\t\nLiability %\t<%=getDecimalValue(\"PercentageOfLiability\")%>\t\nPrevious Paid Reserve\t<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ClaimCostPreviousEvent\",getValue(\"PercentageOfLiability\")),2)%>\t\nPay Now Reserve\t<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ClaimCostPayNowEvent\",getValue(\"PercentageOfLiability\")),2)%>\t\nOutstanding Reserve\t<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ClaimCostOutstandingEvent\",getValue(\"PercentageOfLiability\")),2)%>\t\nPrevious Paid Service Cost\t<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ServiceCostPreviousEvent\",getValue(\"PercentageOfLiability\")),2)%>\t\nPay Now Service Cost\t<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ServiceCostPayNowEvent\",getValue(\"PercentageOfLiability\")),2)%>\t\nOutstanding Service Cost\t<%=getNumberString(applyEventToBusinessEntityParameter(getBusinessEntity(\"MCLFinancialsTable\"),\"McLarens.DocumentTags.ServiceCostOutstandingEvent\",getValue(\"PercentageOfLiability\")),2)%>\t\nLiability %\t<%=getDecimalValue(\"PercentageOfLiability\")%>\t<%=endList()%>\n\nInsured <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Insured']\")%>\nName\t<%=getValue(\"Fullname\")%>\nAddress\t<%=getValue(\"Address1\")%><% if(!getValue(\"Address2\").equals(\"\")) { %>\n<%= getValue(\"Address2\")%><% } %><% if(!getValue(\"Address3\").equals(\"\")) { %>\n<%= getValue(\"Address3\")%><% } %>\nPostcode\/City\t<%=getValue(\"PostCode\")%> <%=getValue(\"Address5\")%>\nCountry\t<%=getValue(\"Country\/\/InstanceName\")%>\nEmail\t<%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%>\n<%=setLevel()%>\n\nInstructing Officer <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Instructing Officer']\")%>\nName\t<%=getValue(\"Fullname\")%>\nEmail\t<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%>\n<%=setLevel()%>\n\nHandling Officer <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Handling Officer']\")%>\nName\t<%=getValue(\"Fullname\")%>\nEmail\t<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%>\n<%=setLevel()%>\n\nClient <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Client']\")%>\nName\t<%=getValue(\"Fullname\")%>\nEmail\t<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%>\n<%=setLevel()%>\n\nClaimant <%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Claimant']\")%>\nName\t<%=getValue(\"Fullname\")%>\nEmail\t<%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%>\n<%=setLevel()%>\n\nTechnical Report\nTitle\t<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.TechnicalReportTitleEvent\")%>\nReporting Status\t<%=getValue(\"ReportingStatus\/\/InstanceName\")%>\nReporting Status Notes\t<%=getValue(\"ReportStAddInf\")%>\nSettlement Date\t<%=getDateValue(\"SettlementDate\")%>\nResolved Date\t<%=getDateValue(\"ClaimResolvedDate\")%>\nProject Currency\t<%=getValue(\"ProjectCurrency\/\/InstanceName\")%>\nBilling Currency\t<%=getValue(\"BillingCurrency\/\/InstanceName\")%>\nClaimed Value\t<%=getDecimalValue(\"ClaimValue\/Amount\")%> <%=getValue(\"ClaimValue\/CurrencyCode\")%>\nOverstatement Saving\t<%=getDecimalValue(\"OverstatementSaving\/Amount\")%> <%=getValue(\"OverstatementSaving\/CurrencyCode\")%>\nApplicable Excess\t<%=getDecimalValue(\"ApplExcess\/Amount\")%> <%=getValue(\"ApplExcess\/CurrencyCode\")%>\nApplicable Excess Notes\t<%=getValue(\"ApplExcessDesc\")%>\nRepudiation Reason\t<%=getValue(\"RepudiationReason\")%>\nRepudiation Date\t<%=getDateValue(\"DateOfRepudiation\")%>\nPayment Settled\t<%=getValue(\"PaymentSettledIndicator\")%>\nPayment Notes\t<%=getValue(\"PaymentNotes\")%>\n\n<% if(applyEventToBusinessEntity(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportFinancialsIncludedEvent\").equals(\"\")) {%>\nTotals\nPreviously Recommended\tReserve\t<%=getDecimalValue(\"MCLFinancialsTable\/aprClmResPtDt\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprClmResPtDt\/CurrencyCode\")%>\n\tNon-Claim\t<%=getDecimalValue(\"MCLFinancialsTable\/aprSrvResPtDt\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprSrvResPtDt\/CurrencyCode\")%>\nPayment Now\tReserve\t<%=getDecimalValue(\"MCLFinancialsTable\/aprClmResPNow\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprClmResPNow\/CurrencyCode\")%>\n\tNon-Claim\t<%=getDecimalValue(\"MCLFinancialsTable\/aprSrvResPNow\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprSrvResPNow\/CurrencyCode\")%>\nOutstanding\tReserve\t<%=getDecimalValue(\"MCLFinancialsTable\/aprClmResNet\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprClmResNet\/CurrencyCode\")%>\n\tNon-Claim\t<%=getDecimalValue(\"MCLFinancialsTable\/aprSrvResNet\/Amount\")%> <%=getValue(\"MCLFinancialsTable\/aprSrvResNet\/CurrencyCode\")%>\n\nClaim Cost \t\nCategory\tSum Insured\tPrevious\tPayment Now\tOutstanding\t<%=startList(\"MCLFinancialsTable\/\/MCLFinancialsClaimCost\")%>\n<%=getValue(\"ReserveType\/\/InstanceName\")%>\t<%=getDecimalValue(\"SumInsured\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"PaidToDate\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"PayNow\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"AmountOutstanding\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=endList()%>\n\nExcess \t\nCategory\tGross Excess\tPrevious\tDeducted Now\tOutstanding\t<%=startList(\"MCLFinancialsTable\/\/MCLFinancialsAppliedExcess\")%>\n<%=getValue(\"DeductibleType\/\/InstanceName\")%>\t<%=getDecimalValue(\"GrossExcess\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"PreviouslyDeducted\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"DeductNow\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"AmountOutstanding\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=endList()%>\n\nService Cost \t\nCategory\tGross Amount\tPrevious\tPayment Now\tOutstanding\t<%=startList(\"MCLFinancialsTable\/\/MCLFinancialsServiceCost\")%>\n<%=getValue(\"ReserveType\/\/InstanceName\")%>\t<%=getDecimalValue(\"GrossServiceCost\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"PaidToDate\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"RequestedNow\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=getDecimalValue(\"AmountOutstanding\")%> <%=getValue(\"Currency\/\/InstanceName\")%>\t<%=endList()%>\n<%}%>\n\n \n\n<% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968001\").equals(\"\")) {%>\nCIRCUMSTANCES\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968002\").equals(\"\")) {%>\nPOLICY LIABILITY\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968003\").equals(\"\")) {%>\nPLANNED ACTION\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968004\").equals(\"\")) {%>\nTHIRD PARTY ASPECT\nThis section needs to be populated\n<%}%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext), \"McLarens.DocumentTags.TechnicalReportSectionEvent\",\"515968005\").equals(\"\")) {%>\nATTACHMENTS\nThis section needs to be populated\n<%}%>\n\n \n\nAdjusters \t<%=startList(\"OCPartyCaseRole\")%><% if(applyEventToBusinessEntityParameter(getEformObject(pageContext),\"McLarens.DocumentTags.AdjusterIncludedEvent\",getValue(\"partyWithRole\/\/OID\")).equals(\"\")) {%>\nRole\t<%=getValue(\"definedRole\/\/RoleName\")%>\t\nName\t<%=getValue(\"Fullname\")%>\t\nSignature\t<%=getUserSignatureImage(pageContext, getValue(\"UserID\"))%>\t\nAdjuster Code\t<%=getValue(\"AdjusterCode\")%>\t<%}%><%=endList()%>\n\n",
+          "Date Modified" : "2018-05-31 15:37:36 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "JavaScript+PHP",
+          "Date Created" : "2018-05-31 15:36:24 +0100"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        " Tags",
+        " Master",
+        " Original"
+      ]
+    },
+    {
+      "Date Created" : "2018-02-13 15:33:02 +0000",
+      "Date Modified" : "2018-09-19 10:24:15 +0100",
+      "Folder" : "VBA",
+      "Title" : "Macro to remove SmartQuotes",
+      "Fragments" : [
+        {
+          "Content" : "Sub CleanUp()\n'\n' CleanUp Macro\n'\n'\n    Selection.Find.ClearFormatting\n    Selection.Find.Replacement.ClearFormatting\n    With Selection.Find\n        .Text = \"<% \"\n        .Replacement.Text = \"<%\"\n        .Forward = True\n        .Wrap = wdFindContinue\n        .Format = False\n        .MatchCase = False\n        .MatchWholeWord = False\n        .MatchWildcards = False\n        .MatchSoundsLike = False\n        .MatchAllWordForms = False\n    End With\n    Selection.Find.Execute Replace:=wdReplaceAll\n    \n    Dim vFindText As Variant\nDim vReplText As Variant\nDim i As Long\nSelection.HomeKey Unit:=wdStory\nvFindText = Array(\"[^0145^0146]\", \"[^0147^0148]\")\nvReplText = Array(\"^039\", \"^034\")\nWith Selection.Find\n.ClearFormatting\n.Replacement.ClearFormatting\n.Forward = True\n.Wrap = wdFindContinue\n.MatchWholeWord = True\n.MatchWildcards = True\nFor i = LBound(vFindText) To UBound(vFindText)\n.Text = vFindText(i)\n.Replacement.Text = vReplText(i)\n.Execute Replace:=wdReplaceAll\nNext i\nEnd With\nIf ActiveDocument.Saved = False Then ActiveDocument.Save\nEnd Sub\n",
+          "Date Modified" : "2018-07-22 14:54:39 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "PHP",
+          "Date Created" : "2018-02-13 15:33:02 +0000"
+        }
+      ],
+      "Tags" : [
+        "SaveAsJSP",
+        "VBA",
+        "Find Replace"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:43:25 +0100",
+      "Date Modified" : "2018-05-30 09:44:29 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "CLAIM CURRENCY SYMBOL",
+      "Fragments" : [
+        {
+          "Content" : "<% if(!getValue(\"Currency\/\/InstanceName\").equals(\"GBP\")) { %><%=getValue(\"Currency\/\/InstanceName\")%><% } else {%>£<% } %>",
+          "Date Modified" : "2018-05-30 09:43:43 +0100",
+          "Note" : "Substitute Claim Currency Code for \"£\" IF 'GBP' ",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:43:25 +0100"
+        }
+      ],
+      "Tags" : [
+        "currency",
+        "IF...FALSE...ELSE"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-11 11:11:04 +0100",
+      "Date Modified" : "2018-05-30 09:30:23 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Find String within a String",
+      "Fragments" : [
+        {
+          "Content" : "\nPosition(“Mississippi”;“iss”;1;1) returns 2.\nPosition(“Mississippi”;“iss”;1;2) returns 5.\nPosition(“Mississippi”;“iss”;3;1) returns 5.\nLeft(Name;Position(Name;“ “;1;1)-1) returns William, when Name is a text field that contains William Smith.\nRight(Name;Length(Name) - Position(Name;“ “;Length(Name);-1)) returns Smith.\n",
+          "Date Modified" : "2018-05-30 09:30:17 +0100",
+          "Note" : "Position(text;searchString;start;occurrence)\n\nParameters \ntext - any text expression or text field\nsearchString - any text expression or text field representing the set of characters you want to find.\nstart - any numeric expression, or field containing a number, representing the number of characters from the start of the text string at which to begin the search.\noccurrence - any numeric expression or field containing a number, representing which instance of the text string you want to find. A negative occurrence value causes the scan to go in the opposite direction from start. A zero value for occurrence is invalid and returns a result of zero.\nData type returned \nnumber\nOriginated in \nFileMaker Pro 6.0 or earlier\nDescription \nThis function is not case-sensitive. If searchString isn’t contained in text or if there was no specified occurrence, zero is returned.\nExamples ",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-11 11:11:04 +0100"
+        }
+      ],
+      "Tags" : [
+        "Text",
+        " Filemaker",
+        "Position"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-16 11:35:40 +0100",
+      "Date Modified" : "2018-05-16 11:35:59 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "SUGGESTED INDEMNITY RESERVE",
+      "Fragments" : [
+        {
+          "Content" : "<%=getDecimalValue(\"USTotalExcessTotalReserve\")%>",
+          "Date Modified" : "2018-05-16 11:36:19 +0100",
+          "Note" : "McLarens US Financials",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-16 11:35:40 +0100"
+        }
+      ],
+      "Tags" : [
+        "US",
+        " Mclarens",
+        " Financials"
+      ]
+    },
+    {
+      "Date Created" : "2018-04-18 09:57:23 +0100",
+      "Date Modified" : "2018-04-18 10:12:54 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Previous Payments US",
+      "Fragments" : [
+        {
+          "Content" : "<% if(getDecimalValue(\"TotalExcessAdjustedLoss\").equals(\"0.00\")){ %> <%}else{%>\nPREVIOUS PAYMENTS\n$\n<%= getDecimalValue(\"TotalExcessAdjustedLoss\")%>\n\nREMAINING INDEMNITY RESERVE\n$\n<%=setLevel()%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResNet\/Amount\")%> \n<%}%><%}%>\n\n\n\n",
+          "Date Modified" : "2018-04-18 09:57:53 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-04-18 09:57:23 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2017-12-27 10:04:40 +0000",
+      "Date Modified" : "2017-12-27 10:06:54 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "Dates",
+      "Fragments" : [
+        {
+          "Content" : "getValue(\"OCCase\/\/EffectiveDate\"): 2017-10-31T02:00:00\ngetDateValue(\"OCCase\/\/EffectiveDate\"): 30 October 2017\ngetDateOnlyValue(\"OCCase\/\/EffectiveDate\"): 31 October 2017\ngetDateTZValue(\"OCCase\/\/EffectiveDate\"): 30 October 2017\ngetDateTimeValue(\"OCCase\/\/EffectiveDate\"): 30 October 2017 22:00:00\ngetValue(\"OCContractStub\/\/StartDate\"): 2017-05-01T00:00:00\ngetDateValue(\"OCContractStub\/\/StartDate\"): 1 May 2017\ngetDateOnlyValue(\"OCContractStub\/\/StartDate\"): 1 May 2017\ngetDateTZValue(\"OCContractStub\/\/StartDate\"): 30 April 2017\ngetDateTimeValue(\"OCContractStub\/\/StartDate\"): 30 April 2017 20:00:00\n\n<%=getValue(\"DeductibleType\/\/InstanceName\")%>\n\n<%=getValue(\"AppliedExcessDescription\")%>\n\n<%=getValue(\"ReserveType\/\/InstanceName\")%>\n\n<%=getValue(\"CostDescription\")%>\n\nÉ\tE\n\né\te\n\n<%=setLevel()%><%if(!getValue(\"DateofLossNarrative\").equals(\"\")) { %><%=getValue(\"DateofLossNarrative\")%> <% } else {%><% } %><%=getDateValue(\"OCCase\/\/EffectiveDate\")%><% if(!getDateValue(\"OCCase\/\/ToDate\").equals(\"\")) { %> de <%=getDateValue(\"OCCase\/\/ToDate\")%><% } else {%> <% } %>\n",
+          "Date Modified" : "2018-05-30 09:39:11 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2017-12-27 10:04:40 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:44:30 +0100",
+      "Date Modified" : "2018-05-30 09:44:38 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "PROJECT CURRENCY SYMBOL",
+      "Fragments" : [
+        {
+          "Content" : "<% if(!getValue(\"ProjectCurrency\/\/InstanceName\").equals(\"GBP\")) { %><%=getValue(\"ProjectCurrency\/\/InstanceName\")%><% } else {%>£<% } %>",
+          "Date Modified" : "2018-05-30 09:44:57 +0100",
+          "Note" : "Substitute Project Currency Code for \"£\" IF 'GBP' ",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:44:30 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-09-24 14:39:41 +0100",
+      "Date Modified" : "2018-09-24 14:40:04 +0100",
+      "Folder" : "VBA",
+      "Title" : "Miscellaneous VBA\/Macros For Word",
+      "Fragments" : [
+        {
+          "Content" : "Sub Macro1() \nSelection.Fields.Add Range:=Selection.Range, Type:=wdFieldEmpty, \nText:=\"INCLUDETEXT \"\"HardDriveName:FileName.htm\"\"\", PreserveFormatting:=True \nEnd Sub",
+          "Date Modified" : "2018-09-24 14:40:05 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-24 14:39:41 +0100"
+        }
+      ],
+      "Tags" : [
+        "MAcro",
+        " VBA",
+        " Word",
+        " Pictures"
+      ]
+    },
+    {
+      "Date Created" : "2019-05-22 19:17:05 +0100",
+      "Date Modified" : "2019-05-22 19:17:48 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Omit Blank Fax Row",
+      "Fragments" : [
+        {
+          "Content" : " Cell A1\n <% if(!applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeFaxEvent\").equals(\"\")){%>Fax\n \n Cell B1\n<%=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficeFaxEvent\")%><%}else{%><%}%>\n",
+          "Date Modified" : "2019-05-22 19:17:36 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2019-05-22 19:17:05 +0100"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        "Fax",
+        " Omit",
+        " Row"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-08 13:37:25 +0100",
+      "Date Modified" : "2018-05-08 13:37:37 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Accounts Coding",
+      "Fragments" : [
+        {
+          "Content" : "Accounts Coding\nMain Version\nDo one Transaction dialog that covers Withdrawal\/Deposit\/Transfer (OR make all three look the same)\n\tNew Transaction\n\t\tAuto complete same Account as before\n\t\tAuto complete from Date:Date\n\t\tDefault to Withdrawal but drop down to select Deposit\/Transfer - call Withdrawl\/Deposit\/Script depending on value\n\t\tChange HEADER of Form (and colour?) Red - Withdrawl, Green - Deposit, Blue Transfer\n\t\t\tGet current value of 'Cleared' in $Clear\n\t\t\tIF Withdrawal\n\t\t\t\tGet value of \n\t\t\t\tUsual stuff\n\t\t\t\tIf 'Cleared' &lt;> $Clear and Repeating > \"A\"\n\t\t\t\t\tIf Repeating = \"W\"\n\t\t\t\t\t\t$RepDAte = Date + 7\n\t\t\t\t\tIf Repeating = \"M\"\n\t\t\t\t\t\t$RepDate = Month +1\n\t\t\t\t\tIf Repeating = \"Y\"\n\t\t\t\t\t\t$RepDate = Year +1\n\t\t\t\tDupe Record\n\t\t\t\t\tDate = $RepDate\n\t\t\t\t\tCleared = \"\"\n\t\t\tIF Deposit\n\t\t\t\tIf AMount &lt; 0 then Amount = Amount * -1\n\t\t\t\tIf 'Cleared' &lt;> $Clear and Repeating > \"A\"\n\t\t\t\t\tIf Repeating = \"M\"\n\t\t\t\t\t\t$RepDate = Month +1\n\t\t\t\tDupe Record\n\t\t\t\t\tDate = $RepDate\n\t\t\t\t\tCleared = \"\"\n\t\t\tIF Transfer open Transfer Dialog\n\t\t\t\tIf 'Cleared' &lt;> $Clear and Repeating > \"A\"\n\t\t\t\t\tIf Repeating = \"W\"\n\t\t\t\t\t\t$RepDAte = Date + 7\n\t\t\t\t\tIf Repeating = \"M\"\n\t\t\t\t\t\t$RepDate = Month +1\n\t\t\t\t\tIf Repeating = \"Y\"\n\t\t\t\t\t\t$RepDate = Year +1\n\t\t\t\tDupe BOTH Records\n\t\t\t\t\tDate = $RepDate\n\t\t\t\t\tCleared = \"\"\n\t\t\t\t\n\n\tSort out Scheduled transactions for W\/M\/Y\n\t\n\tCreate an export routine for Transactions to csv filtering by date? \n\tCreate an iPad view of accounts for entering on the go\n\tCreate an import routine to bring in iPad transactions\n\nMoneywiz CSV\n\tDate\tAmount\tAmount(Expense)\tAmount (Income)\tDescription\tPayee\tCategory\tAccount\tTransfers\tCheque NO",
+          "Date Modified" : "2018-05-08 13:37:46 +0100",
+          "Note" : "Accounts Coding\nMain Version\nDo one Transaction dialog that covers Withdrawal\/Deposit\/Transfer (OR make all three look the same)\n\tNew Transaction\n\t\tAuto complete same Account as before\n\t\tAuto complete from Date:Date\n\t\tDefault to Withdrawal but drop down to select Deposit\/Transfer - call Withdrawl\/Deposit\/Script depending on value\n\t\tChange HEADER of Form (and colour?) Red - Withdrawl, Green - Deposit, Blue Transfer\n\t\t\tGet current value of 'Cleared' in $Clear\n\t\t\tIF Withdrawal\n\t\t\t\tGet value of \n\t\t\t\tUsual stuff\n\t\t\t\tIf 'Cleared' &lt;> $Clear and Repeating > \"A\"\n\t\t\t\t\tIf Repeating = \"W\"\n\t\t\t\t\t\t$RepDAte = Date + 7\n\t\t\t\t\tIf Repeating = \"M\"\n\t\t\t\t\t\t$RepDate = Month +1\n\t\t\t\t\tIf Repeating = \"Y\"\n\t\t\t\t\t\t$RepDate = Year +1\n\t\t\t\tDupe Record\n\t\t\t\t\tDate = $RepDate\n\t\t\t\t\tCleared = \"\"\n\t\t\tIF Deposit\n\t\t\t\tIf AMount &lt; 0 then Amount = Amount * -1\n\t\t\t\tIf 'Cleared' &lt;> $Clear and Repeating > \"A\"\n\t\t\t\t\tIf Repeating = \"M\"\n\t\t\t\t\t\t$RepDate = Month +1\n\t\t\t\tDupe Record\n\t\t\t\t\tDate = $RepDate\n\t\t\t\t\tCleared = \"\"\n\t\t\tIF Transfer open Transfer Dialog\n\t\t\t\tIf 'Cleared' &lt;> $Clear and Repeating > \"A\"\n\t\t\t\t\tIf Repeating = \"W\"\n\t\t\t\t\t\t$RepDAte = Date + 7\n\t\t\t\t\tIf Repeating = \"M\"\n\t\t\t\t\t\t$RepDate = Month +1\n\t\t\t\t\tIf Repeating = \"Y\"\n\t\t\t\t\t\t$RepDate = Year +1\n\t\t\t\tDupe BOTH Records\n\t\t\t\t\tDate = $RepDate\n\t\t\t\t\tCleared = \"\"\n\t\t\t\t\n\n\tSort out Scheduled transactions for W\/M\/Y\n\t\n\tCreate an export routine for Transactions to csv filtering by date? \n\tCreate an iPad view of accounts for entering on the go\n\tCreate an import routine to bring in iPad transactions\n\nMoneywiz CSV\n\tDate\tAmount\tAmount(Expense)\tAmount (Income)\tDescription\tPayee\tCategory\tAccount\tTransfers\tCheque NO",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-08 13:37:25 +0100"
+        }
+      ],
+      "Tags" : [
+        "Filemaker"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-24 16:09:36 +0100",
+      "Date Modified" : "2018-05-24 16:09:53 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Open Container Field",
+      "Fragments" : [
+        {
+          "Content" : "Allow User Abort [Off]\nSet Error Capture [on]\n\n\nSet VAriable [$path ; Value: Get(TemporaryPath)]\nSet Variable [$filename ; Value: GetContainerAttribute ( T06_DOCUMENTS::Document_Container ; \"filename\")]\nSet Variable [$final_path ; Value: $path & $filename]\nExport Field Contents [T06_DOCUMENTS::Document_Container ; \"$final_path\" ; Automatically open ; Create Directories:off]",
+          "Date Modified" : "2018-05-24 23:51:53 +0100",
+          "Note" : "Code to open a local container field",
+          "Title" : "Fragment",
+          "Language" : "AppleScript",
+          "Date Created" : "2018-05-24 16:09:36 +0100"
+        }
+      ],
+      "Tags" : [
+        "Container",
+        "Filemaker"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:41:29 +0100",
+      "Date Modified" : "2018-05-30 09:42:18 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Claim Type\/Description of Cause",
+      "Fragments" : [
+        {
+          "Content" : "<%=getValue(\"ClientSpecificPeril\/\/InstanceName\")%>  - <%=getValue(\"EventCause\/\/InstanceName\")%>\n",
+          "Date Modified" : "2018-05-30 09:41:57 +0100",
+          "Note" : "Claim Type - Description of Cause",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-30 09:41:29 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-16 14:46:46 +0100",
+      "Date Modified" : "2018-05-16 14:47:07 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "LoB eForm v Account eForm",
+      "Fragments" : [
+        {
+          "Content" : "<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormFieldEvent\",\"Payee\")%>\n \nTo fix, the tag needs to be:\n \n<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"accntDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormFieldEvent\",\"Payee\")%\n",
+          "Date Modified" : "2018-05-16 14:47:41 +0100",
+          "Note" : "Differentiaiting between ACcount eForm and LoB eForm",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-16 14:46:46 +0100"
+        }
+      ],
+      "Tags" : [
+        "eform",
+        "LoB",
+        "Account"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-22 12:54:54 +0100",
+      "Date Modified" : "2018-09-22 12:55:08 +0100",
+      "Folder" : "Word Fields",
+      "Title" : "Conditional Logos",
+      "Fragments" : [
+        {
+          "Content" : "IF",
+          "Date Modified" : "2018-09-22 12:55:55 +0100",
+          "Note" : "http:\/\/mp3quiz.co.uk\/wp-content\/uploads\/Aviation.png\nhttp:\/\/mp3quiz.co.uk\/wp-content\/uploads\/McLarens.png\nhttp:\/\/mp3quiz.co.uk\/wp-content\/uploads\/Norcross.png",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-22 12:54:54 +0100"
+        }
+      ],
+      "Tags" : [
+        "Word",
+        " Logo",
+        "URL"
+      ]
+    },
+    {
+      "Date Created" : "2019-05-21 19:16:38 +0100",
+      "Date Modified" : "2019-05-21 19:18:00 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "GetLastError()",
+      "Fragments" : [
+        {
+          "Content" : "Get(LastError)\nPurpose \nReturns a number for the error that occurred in the execution of the most recently executed script step.\nFormat \nGet(LastError)\nParameters \nNone\nData type returned \nnumber\nOriginated in \nFileMaker Pro 6.0 or earlier\n\nDescription \nUse this function to detect and control the outcome of errors. See FileMaker error codes.\nNotes \n•macOS: In FileMaker Pro, if an error occurs while performing an AppleScript via the Perform AppleScript (macOS) script step, the AppleScript error code will be returned.\n•For ODBC imports and Execute SQL script steps, if an error occurs while performing a SQL query, returns FileMaker error 1408. For detailed information about the error, use the Get(LastExternalErrorDetail) function. If there is no information about the error, returns FileMaker error 1409.\n•For working with ODBC data sources in the relationships graph, returns FileMaker error 1408.\n•Some script triggers allow for the activating command or event to be canceled if the script executed by the script trigger returns a False value. When a command or event is canceled this way, the error code is set to 20.\n•The following control script steps do not clear the last error condition reported by FileMaker Pro: If, Else, Else If, End If, Loop, Exit Loop If, End Loop, Exit Script, and Halt Script.\n•For actions that fail to connect to a host because the host’s SSL certificate cannot be verified, this function returns an error code. For detailed information about the error, use the Get(LastExternalErrorDetail) function.\nTip  To create a script that responds to errors without displaying alerts, use this function with the Set Error Capture script step with the On option.\nExamples \nReturns 0 when the most recent script step executed successfully.\nReturns 401 when no records are found after the Perform Find script step has been executed.\nFor an example script, see Set Error Capture script step.",
+          "Date Modified" : "2019-05-21 19:17:31 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2019-05-21 19:16:38 +0100"
+        }
+      ],
+      "Tags" : [
+        "Filemaker",
+        " related",
+        " record",
+        " Error"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-22 12:33:54 +0100",
+      "Date Modified" : "2018-09-22 12:34:10 +0100",
+      "Folder" : "Word Fields",
+      "Title" : "DRAFT Watermark",
+      "Fragments" : [
+        {
+          "Content" : "{ IF {FILENAME}=\"DRAFT*\",\"DRAFT\",\"\"}",
+          "Date Modified" : "2018-09-22 12:34:11 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-22 12:33:54 +0100"
+        }
+      ],
+      "Tags" : [
+        "Word",
+        "Field",
+        " DRAFT"
+      ]
+    },
+    {
+      "Date Created" : "2018-02-13 15:34:00 +0000",
+      "Date Modified" : "2018-02-13 15:34:08 +0000",
+      "Folder" : "VBA",
+      "Title" : "Save As JSP Code",
+      "Fragments" : [
+        {
+          "Content" : "Doc Template Properties\n\nhttp:\/\/www.docprodserver.com\/templates\/compiled\/\n\norg.w3c.dom.Element,org.w3c.dom.Node,org.w3c.dom.NodeList,\n\ncom.fineos.mcl.docprod.MCLDocProdJspBase\n\ninitializeDoc(pageContext);\n\n\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\nPublic Const RevisionInfo As String = \"Template revision 1.34, 8 June 2004\"\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n'PLEASE CHANGE THE REVISION NUMBER IF YOU CHANGE THIS TEMPLATE\n\nPublic Const TemplateURLRoot As String = \"TemplateURLRoot\"\nPublic Const CustomImports As String = \"CustomImports\"\nPublic Const InitBlockProperty As String = \"InitBlock\"\nPublic Const ExtendsProperty As String = \"Extends\"\nPublic Const TablesReformattedProperty As String = \"TablesReformatted\"\nPublic Const TablesReformatRequiredProperty As String = \"TablesReformatRequired\"\nPublic Const IsNotTemplateProperty As String = \"IsNotTemplate\"\nSub InsertField()\n     FieldSelectionForm.Show\nEnd Sub\nSub CompileInWebsite()\n\nDim sURL As String\n    'Check we know the location in the web site\n    If getCustomProperty(TemplateURLRoot) = \"\" Then\n        setCustomProperty TemplateURLRoot, \"http:\/\/www.docprodserver.com\/templates\/compiled\/\"\n        PropertyForm.Show\n    End If\n    \n    'Save as JSP\n    docName = SaveAsJSPWithoutClosing()\n    \n    'Execute browser and navigate to JSP\n    \n    On Error GoTo shell_error\n    sURL = getCustomProperty(TemplateURLRoot) + \"createdoc_\" + getNameOnly() + \".jsp\"\n    ShellURL sURL\n        \n    'Close the document\n    ReOpenDocument (docName)\n    \n    Exit Sub\n    \nshell_error:\n    MsgBox \"Error trying to launch \" + sURL + \" - \" + Err.Description\n    Exit Sub\n    \nEnd Sub\nSub ReOpenDocument(docName As String)\n    nameOnly = getNameOnly()\n   \n    'Windows(nameOnly + \".tmp\").Activate\n    \n    'ActiveDocument.Close\n     'Word.Application.Documents.Open (docName)\n    \n     Word.Application.Documents.Open (docName)\n     Documents(nameOnly + \".tmp\").Close\n     Windows(docName).Activate\n     \nEnd Sub\nPublic Sub EditTemplateURL()\n        PropertyForm.Show\nEnd Sub\n\nFunction getCurName() As String\n    getCurName = LCase(ActiveDocument.name)\nEnd Function\n\nFunction getNameOnly() As String\n    Dim testString As String\n    Dim lastIndex As Integer\n    lastIndex = InStrRev(getCurName(), \".\") - 1\n    testString = Mid(getCurName(), lastIndex, Len(getCurName()) - lastIndex)\n    getNameOnly = Mid(getCurName(), 1, lastIndex)\nEnd Function\n\nSub SaveAsJSP()\n\n    On Error GoTo SaveError\n    \n    Dim sURL As String\n    Dim oShellHandler As Object\n    \n    docName = SaveAsJSPWithoutClosing()\n    ReOpenDocument (docName)\n    \n    'If Not (getCustomProperty(\"DocumentTypeSaved\") = \"True\") Then\n    \n    ' if no documenttype has yet been created then navigate to the jsp to create one.\n    ' using ShellEcecuteHandler which will find the users' browser & open.\n    '    On Error GoTo shell_error\n    '    setCustomProperty \"DocumentTypeSaved\", \"True\"\n    '    sURL = ParseURL(getCustomProperty(\"url\"))\n    '    ShellURL sURL\n    'End If\n    \n    Exit Sub\nSaveError:\n    MsgBox \"Problem saving this document (\" + Err.Description + \")\"\n    Exit Sub\n    \nshell_error:\n    MsgBox \"Error trying to launch \" + sURL + \" - \" + Err.Description\n    Exit Sub\nEnd Sub\n\nSub SaveAndCompile()\n\n    On Error GoTo SaveError\n    docName = SaveAsJSPWithoutClosing()\n    On Error GoTo CompileError\n    CompileTemplate\n    ReOpenDocument (docName)\n    Exit Sub\n    \nSaveError:\n    MsgBox \"Problem saving this document (\" + Err.Description + \")\"\n    Exit Sub\n    \nCompileError:\n    MsgBox \"Problem invoking the compiler (\" + Err.Description + \")\"\n    Exit Sub\n    \nEnd Sub\n\nFunction SaveAsJSPWithoutClosing() As String\n\nOn Error GoTo Save_Error\n\n    'Save master template and ensure ActiveDocument has a name\n    'Force save by setting saved = false to make sure it saves even\n    'if it thinks its saved already. Getas around word bug by which changing\n    'only a property doesn't set saved=false thereby the changes get lost\n    'unless the document text is changed at the same time.\n    ActiveDocument.Saved = False\n    ActiveDocument.Save\n    \n    'Set the is document parameter to true so script can distinguish\n    'Note that the template is already saved so doesn't get this property\n    setCustomProperty IsNotTemplateProperty, \"True\"\n    \n    'Pass out the document name before it gets mixed up\n    SaveAsJSPWithoutClosing = ActiveDocument.path + \"\\\" + ActiveDocument.name\n    \n    Dim curName, newName, fullName, nameOnly As String\n    Dim lastIndex As Integer\n    fullName = ActiveDocument.path + \"\\\" + ActiveDocument.name\n    curName = getCurName()\n    nameOnly = getNameOnly()\n    htmName = ActiveDocument.path + \"\\compiled\\\" + nameOnly + \".tmp\"\n    'Get the last index of \".\"\n    lastIndex = InStrRev(getCurName(), \".\") - 1\n    jspName = ActiveDocument.path + \"\\compiled\\createdoc_\" + Mid(curName, 1, lastIndex) + \".jsp\"\n    \n    ' Header file names\n    headerHtmName = ActiveDocument.path + \"\\compiled\\\" + nameOnly + \"_files\\header.htm\"\n    headerJspName = ActiveDocument.path + \"\\compiled\\\" + nameOnly + \"_files\\header.jsp\"\n       \n   \n       \n   ActiveDocument.SaveAs filename:=htmName, FileFormat:=wdFormatHTML, Password:=\"\", AddToRecentFiles:=False, WritePassword _\n        :=\"\", ReadOnlyRecommended:=False, EmbedTrueTypeFonts:=False, _\n        SaveNativePictureFormat:=False, SaveFormsData:=False, SaveAsAOCELetter:= _\n        False\n        \n    ' Convert the template htm document into a template jsp\n    ConvertHtmToJsp htmName, jspName\n    \n    ' Check to see if there is a header.htm, i.e. that the document has headers and footers\n    If FileExists(headerHtmName) Then\n        ' convert the headersandfooters header.htm into a header.jsp, only if the header.htm exists\n        ConvertHtmToJsp headerHtmName, headerJspName\n    End If\n            \n    Exit Function\n    \nSave_Error:\n        MsgBox \"Error trying to Save: SaveAsJspWithoutClosing : (\" + Err.Description + \")\"\n    \nEnd Function\n\n\nSub ConvertHtmToJsp(inputHtmFilename As Variant, outputJspFilename As Variant)\n\n    On Error GoTo ConversionError\n    \n    Open inputHtmFilename For Input As #1\n    \n    Open outputJspFilename For Output As #2\n    \n    Dim inBuf As String\n    Dim inLine As String\n    Dim outBuf As String\n    Dim stringToSearch As String\n    Dim firstCharacter As Integer\n    Dim charsetToAdd As String\n    stringToSearch = \"Content-Type content=\"\"text\/html;\"\n    charsetToAdd = \" charset=utf-8\"\"\"\n    \n    'looking for charset to put it in jsp page FFO-6651 29\/02\/2008\n    While (Not EOF(1))\n        Line Input #1, inLine\n        firstCharacter = InStr(inLine, stringToSearch)\n        If (firstCharacter > 0) Then\n             charsetToAdd = SubStr(inLine, firstCharacter + Len(stringToSearch), InStrRev(inLine, \"\"\"\"))\n        End If\n        inBuf = inBuf + inLine + Chr(10)\n            \n    Wend\n    outBuf = FixBuffer(inBuf)\n    \n    \n    Dim Extends As String\n    Extends = getCustomProperty(ExtendsProperty)\n    If Extends = \"\" Then\n        Extends = \"com.fineos.frontoffice.components.docprod.DocProdJspBase\"\n    End If\n      \n    'Output standard start code\n    Print #2, \"<%--\"\n    Print #2, \"(c) FINEOS Corporation, all rights reserved\"\n    Print #2, RevisionInfo\n    Print #2, \"--%>\"\n    Print #2, \"<%@ page contentType=\"\"text\/html;\" + charsetToAdd + \" autoFlush=\"\"true\"\" \"\n    Print #2, \"extends = \"\"\" + Extends + \"\"\"\"\n    Print #2, \"import = \"\"java.io.*,com.fineos.frontoffice.bo.*, com.fineos.ta.bo.*,java.text.*,java.util.*,\" + getCustomProperty(CustomImports) + \"com.fineos.ta.persistence.* \"\"\"\n    Print #2, \"%><% if (request.getParameter(com.fineos.frontoffice.components.docprod.DocProdJspBase.DOC_OID_PARM)==null) {%>\"\n    Print #2, \"<html><body>Your Document Production template has compiled and is ready for use. You must use it through the provided user interface.<br><a href=\"\"\/\"\">Continue<\/a><\/body><\/html>\"\n    Print #2, \"<%return;}\"\n    Print #2, \"try {\"\n    Print #2, \"OCPostalAddress theAddress = getAddress(pageContext);\"\n    Print #2, \"OCCase theCase = getCase(pageContext);\"\n    Print #2, \"Rel theContactedParties = getContactedParties(pageContext);\"\n    'fix for FFO-1653 brennanr 17\/08\/2005\n    Print #2, \"OCPerson theContactedPerson = null;\"\n    Print #2, \"try {\"\n    Print #2, \"theContactedPerson = getContactedPerson(pageContext);\"\n    Print #2, \"} catch(ClassCastException e) {}\"\n    'end of FFO-1653\n    Print #2, \"OCDocument theDocument = getDocument(pageContext);\"\n    Print #2, \"OCExtraData theFormData = getFormData(pageContext);\"\n    Print #2, \"OCContactBase theContact = getContact(pageContext);\"\n    Print #2, getCustomProperty(InitBlockProperty)\n    Print #2, \" %>\"\n\n   \n    Print #2, outBuf\n    \n    'Output standard end code\n    Print #2, \"<%} catch(Exception e) { out.print(e) ; e.printStackTrace(); throw e; } %>\"\n    \n    Close #1\n    Close #2\n\n    Exit Sub\n    \nConversionError:\n    MsgBox \"Error trying to Convert htm to jsp: ConvertHtmToJsp : (\" + Err.Description + \")\"\nEnd Sub\n\nPrivate Function FileExists(filename As Variant)\n    \n    ' Returns a boolean - True if the file exists\n    Dim fileSystemObject\n    Set fileSystemObject = CreateObject(\"Scripting.FileSystemObject\")\n    FileExists = fileSystemObject.FileExists(filename)\nEnd Function\n\n\n\nFunction FixBuffer(inputStr As String) As String\n\nDim outString As String\nDim thisBlock As String\nDim jspBlock As String\n\nDim jspStartTag As Long\nDim jspEndTag As Long\nDim tagLen As Long\n\nOn Error GoTo fixBuffer_ERR\n\ntagLen = 5\noutString = \"\"\njspStartTag = 0\njspEndTag = 1 - tagLen\n\nIf InStr(1, inputStr, \"&lt;%\") = 0 Then\n    FixBuffer = inputStr\n    Exit Function\nEnd If\n\n'Before processing JSP blocks, replace encoded JSP start and end tags\n'within hyperlinks which are encoded differently\ninputStr = Replace(inputStr, \"..\\%3C%25\", \"&lt;%\")\ninputStr = Replace(inputStr, \"%25%3E\", \"%&gt;\")\n\nDo\n    '<% is encoded when the htm file is saved\n    jspStartTag = InStr(jspEndTag + tagLen, inputStr, \"&lt;%\")\n    If jspStartTag = 0 Then\n        thisBlock = Mid(inputStr, jspEndTag + tagLen)\n        outString = outString + thisBlock\n        Exit Do\n    Else\n        '%> is encoded when the htm file is saved\n        beforeblock = SubStr(inputStr, jspEndTag + tagLen, jspStartTag - 1)\n        jspEndTag = InStr(jspStartTag, inputStr, \"%&gt;\")\n        \n        ' FFO-9004: Added check to see if opening <% is closed\n        If jspEndTag = 0 Then\n            MsgBox (\"An Error occurred: FixBuffer, An open jsp scriptlet tag (<%) exists and is not closed. A closing scriptlet (%>) is required before this document can be saved as a JSP\")\n            Exit Function\n        Else\n            jspBlock = SubStr(inputStr, jspStartTag, jspEndTag + tagLen - 1)\n            \n            jspBlock = FixJspBlock(jspBlock)\n            If Left(jspBlock, 13) = \"<%=startList(\" Then\n                jspBlock = jspBlock & \"<%for (int i = 0; i < getCurrentNodeList().getLength(); i++) {Node node = getCurrentNodeList().item(i);if (node.getNodeType() == Node.ELEMENT_NODE) {setCurrentElement((Element) node);%>\"\n            ElseIf Left(jspBlock, 11) = \"<%=endList(\" Then\n                jspBlock = \"<%}}%>\" & jspBlock\n            ElseIf Left(jspBlock, 12) = \"<%=elseList(\" Then\n                jspBlock = \"<%}} if (getCurrentNodeList().getLength()==0) {{%>\" & jspBlock\n            End If\n            thisBlock = beforeblock + jspBlock\n            outString = outString + thisBlock\n        End If\n    End If\n        \nLoop While True\n\nFixBuffer = outString\n\nExit Function\n\nfixBuffer_ERR:\n    MsgBox (\"An Error occurred: FixBuffer, \" + Err.Description)\n    \nEnd Function\n\nFunction SubStr(str As String, fromI As Long, toI As Long) As String\n    SubStr = Mid(str, fromI, toI - fromI + 1)\nEnd Function\nFunction RemoveTag(buf As String, TagToGo As String) As String\n'return the supplied string with the tag removed, possible values for tag are\n' <SPAN\n'<\/SPAN\n'' the trailing > will be found and the tag removed\nDim startTagPos As Long\nDim endPos As Long\n\nOn Error GoTo RemoveTag_ERR\n\n    startTagPos = InStr(buf, TagToGo)\n    If startTagPos > 0 Then\n        ' find closing >\n        endPos = InStr(startTagPos, buf, \">\")\n        If (endPos > 0) Then\n            ' remove that much from the buffer\n            ans = Left(buf, startTagPos - 1)\n            ans = ans + Right(buf, Len(buf) - endPos)\n        Else\n            ' couldn't find the trailing > thing is *ucked\n            ans = buf\n           \n        End If\n    Else\n        ans = buf\n    End If\n    RemoveTag = ans\n    \n    Exit Function\n        \nRemoveTag_ERR:\n    MsgBox (\"An Error has occurred, RemoveTag : \" + Err.Description)\n\nEnd Function\nFunction FixJspBlock(inputString As String) As String\n\nDim outString As String\nDim toProcess As String\n\noutString = inputString\n\n'Decode encoded characters\n\n\noutString = Replace(outString, \"’\", \"'\")\noutString = Replace(outString, \"&lt;\", \"<\")\noutString = Replace(outString, \"&gt;\", \">\")\noutString = Replace(outString, \"“\", \"\"\"\")\noutString = Replace(outString, \"”\", \"\"\"\")\noutString = Replace(outString, \"&quot;\", \"\"\"\")\noutString = Replace(outString, Chr$(160), \"\")\noutString = Replace(outString, \"&amp;&amp;\", \"&&\")\n\n'remove new lines within jsp tags (cannot split single statements over multiple lines)\noutString = Replace(outString, Chr(10), \" \")\n\noutString = RemoveAllTag(outString, \"<span\")\noutString = RemoveAllTag(outString, \"<\/span\")\noutString = RemoveAllTag(outString, \"<o:p\")\noutString = RemoveAllTag(outString, \"<\/o:p\")\noutString = RemoveAllTag(outString, \"<p\")\noutString = RemoveAllTag(outString, \"<\/p\")\noutString = RemoveAllTag(outString, \"<a\")\noutString = RemoveAllTag(outString, \"<\/a\")\noutString = RemoveAllTag(outString, \"<b\")\noutString = RemoveAllTag(outString, \"<\/b\")\n\n\nDo While InStr(1, outString, \"  \")\n        outString = Replace(outString, \"  \", \" \")\nLoop\n\noutString = Trim(outString)\n\n\nFixJspBlock = outString\n    \nEnd Function\n\nSub CompileTemplate()\n\n    Dim path As String\n    Dim disk As String\n    Dim command As String\n    Dim name As String\n    name = getNameOnly()\n\n    path = ActiveDocument.fullName\n    path = SubStr(path, 1, InStrRev(path, \"\\\"))\n    disk = Left(path, 2)\n    \n    command = \"\"\"\" + path + \"CompileTemplates.bat\"\" \" + disk + \" \" + path + \" \" + name\n\n    On Error GoTo CompileError\n    rc = Shell(command)\n    On Error GoTo 0\n    Exit Sub\n    \nCompileError:\n    MsgBox \"Compile problem, please check your installation (\" + command + \" failed)\"\n    \nEnd Sub\n\nPrivate Function RemoveAllTag(toProcess As String, TagToGo As String) As String\nDim ans As String\n    ans = RemoveTag(toProcess, TagToGo)\n    While (ans <> toProcess) ' it changed\n        toProcess = ans\n        ans = RemoveTag(toProcess, TagToGo)\n    Wend\n    RemoveAllTag = ans\nEnd Function\nPublic Function setCustomProperty(name As String, newValue As String)\n\nOn Error GoTo setCustomProperty_ERR\n\n    Dim Index As Long\n    Dim pos As Long\n    Dim blockSize As Integer\n    Dim tmpName As String\n    Dim tmpValue As String\n    \n    blockSize = 200\n    pos = 1\n    Index = 1\n    \n    While (pos <= Len(newValue))\n        tmpValue = SubStr(newValue, pos, Min(pos + blockSize - 1, Len(newValue)))\n        tmpName = name + str(Index)\n        setSimpleProperty tmpName, tmpValue\n        pos = pos + blockSize\n        Index = Index + 1\n    Wend\n\n    'Blank out higher index value properties\n    For Each prop In ActiveDocument.CustomDocumentProperties\n        tmpName = name + str(Index)\n        If prop.name = tmpName Then\n            prop.Value = \"\"\n            Index = Index + 1\n        End If\n    Next\n\nExit Function\nsetCustomProperty_ERR:\n    MsgBox (\"Error setting Custom Property, \" + Err.Description)\n    \nEnd Function\n\nPrivate Sub setSimpleProperty(name As String, newValue As String)\n\n    For Each prop In ActiveDocument.CustomDocumentProperties\n        If prop.name = name Then\n            prop.Value = newValue\n            Exit Sub\n        End If\n    Next\n    \n    'If we can't find it, add it\n    With ActiveDocument.CustomDocumentProperties\n        .Add name:=name, _\n            LinkToContent:=False, _\n            Type:=msoPropertyTypeString, _\n            Value:=newValue\n    End With\n    \nEnd Sub\n\nPublic Function getCustomProperty(name As String)\n\nOn Error GoTo getCustomProperty_ERR\n\n    Dim Index As Integer\n    Dim tmpName As String\n    Dim multiValue As String\n    Dim simpleValue As String\n    Index = 1\n    multiValue = \"\"\n    simpleValue = \"\"\n\n    For Each prop In ActiveDocument.CustomDocumentProperties\n        tmpName = name + str(Index)\n        If prop.name = name Then\n            simpleValue = prop.Value\n        End If\n        If prop.name = tmpName Then\n            multiValue = multiValue + prop.Value\n            Index = Index + 1\n        End If\n    Next\n    \n    If multiValue = \"\" Then\n        getCustomProperty = simpleValue\n    Else\n        getCustomProperty = multiValue\n        If simpleValue <> \"\" Then\n            'blank out previous simple value\n            setSimpleProperty name, \"No longer used\"\n        End If\n    End If\n    \n    Exit Function\ngetCustomProperty_ERR:\n    MsgBox (\"Error occurred setting Custom Property\" + Err.Description)\nEnd Function\nSub AboutBbox()\n    MsgBox \"FINEOS Document Production, \" + RevisionInfo + \", (c) FINEOS Corporation, all rights reserved\"\nEnd Sub\nPrivate Function ParseURL(ByVal sURL As String) As String\n        \nOn Error GoTo ParseURL_ERR\n    Const TEMPLATE As String = \"<TemplateName>\"\n    Dim sNewURL As String\n    Dim lpos As Long\n    \n    lpos = InStr(1, sURL, TEMPLATE, vbTextCompare)\n    If (lpos <> 0) Then\n        sNewURL = Mid(sURL, 1, lpos - 1) & ActiveDocument.name\n    End If\n    \n    ParseURL = sNewURL\n    \n    Exit Function\n\nParseURL_ERR:\n    MsgBox (\"Error Parsing URL, \" + Err.Description)\nEnd Function\n\nPrivate Function Min(a As Long, b As Long) As Long\n    If a < b Then\n        Min = a\n    Else\n        Min = b\n    End If\nEnd Function\n\n'Autoformats all tables in the document based on the default table\n'properties in the document. Often needed as the inserted data\n'is a different size that the code block in the template\nSub AutoFormatTables()\n\n    'Don't show please wait dialogue, only runs on server anyway\n    'PleaseWait.Show vbNonModal\n    DoEvents\n    'Word97 Compatible table reformat\n    For Each aTable In ActiveDocument.Tables\n        aTable.AutoFormat AutoFit:=True\n    Next\n    'PleaseWait.Hide\n        \nEnd Sub\n\nPrivate Sub ShellURL(URL As String)\n\n    Dim iexplore As Object\n    Set iexplore = CreateObject(\"InternetExplorer.Application\")\n    iexplore.Visible = True\n    iexplore.navigate2 URL\n    \nEnd Sub\n\n\n\n\n",
+          "Date Modified" : "2018-05-30 09:50:52 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "VB.net",
+          "Date Created" : "2018-02-13 15:34:00 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-09-27 12:34:38 +0100",
+      "Date Modified" : "2018-09-27 12:35:01 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Omit Row From Table",
+      "Fragments" : [
+        {
+          "Content" : "location of loss\n<%=setLevel()%><% if(!getValue(“primLossLoc\/\/Address5”\n).equals(““)) { %><%=getValue(“primLossLoc\/\/Address5”)%>, <%=getValue(“primLossLoc\/\/Country\/\/InstanceName”)%><% } else {%> Not advised<% } %><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Claimant']\")%>\n<% if(!getValue(\"Fullname\").equals(\"\")){%>CLAIMANT\n<%=getValue(\"Fullname\")%>\n<%}else{%><%}%>RESERVE\/Loss\/Repair amount\n<%=setLevel()%><%  if(getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\").equals(\"\")){ %>See Executive Summary <%}else if(getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\").equals(\"0.00\")){ %>See Executive Summary<%}else{%><%=getValue(\"MCLFinancialsTable\/aprClmResGros\/CurrencyCode\")%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\")%><% } %>",
+          "Date Modified" : "2018-09-27 12:35:02 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-27 12:34:38 +0100"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        "Omit",
+        " Row"
+      ]
+    },
+    {
+      "Date Created" : "2018-10-10 12:36:11 +0100",
+      "Date Modified" : "2018-10-10 12:37:00 +0100",
+      "Folder" : "Mac Terminal",
+      "Title" : "Run Unsupported\/Damaged App",
+      "Fragments" : [
+        {
+          "Content" : "sudo spctl --master-disable",
+          "Date Modified" : "2018-10-10 12:36:30 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-10-10 12:36:11 +0100"
+        }
+      ],
+      "Tags" : [
+        "App",
+        " Open",
+        "Unsupported",
+        " Damaged"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-08 13:42:49 +0100",
+      "Date Modified" : "2018-05-08 13:43:10 +0100",
+      "Folder" : "VBA",
+      "Title" : "Excel VBA Loop Range of Cells and Copy Values Elsewhere",
+      "Fragments" : [
+        {
+          "Content" : "Sub Database()\n    Dim rwIndex As Long\n    Dim colIndex As Long\n    Dim Scheme As String\n    Dim Service As String\n    Dim Answer As String\n    Dim Format As String\n    Dim rwIndex2 As Long\n    Dim colIndex2 As Long\n    Dim AnswerIndex As Long\n    Dim RowCounter As Long\n    Dim ColCounter As Long\n    Dim Counter As Long\n    Dim ws1 As Worksheet, ws2 As Worksheet    Set ws1 = Worksheets(\"1\")\n    Set ws2 = Worksheets(\"2\")    With Application\n        .ScreenUpdating = False\n        .EnableEvents = False\n    End With    rwIndex2 = 1\n    Counter = Counter + 1\n    For rwIndex = 2 To 634\n    Counter = Counter + 1\n        For colIndex = 2 To 233\n        Counter = Counter + 1\n            Scheme = ws1.Cells(rwIndex, 1)\n            Service = ws1.Cells(1, colIndex)\n            If ws1.Cells(rwIndex, colIndex) > \"\" Then\n                Answer = ws1.Cells(rwIndex, colIndex)\n                Format = ws1.Cells(rwIndex, colIndex).NumberFormat\n                rwIndex2 = rwIndex2 + 1\n                colIndex2 = 1\n                ws2.Cells(rwIndex2, colIndex2) = Scheme\n                ws2.Cells(rwIndex2, colIndex2 + 1) = Service\n                ws2.Cells(rwIndex2, colIndex2 + 2) = Answer\n                ws2.Cells(rwIndex2, colIndex2 + 3) = Format\n            Else\n            End If\n            ws1.Select\n         Next colIndex\n    Next rwIndex    With Application\n        .ScreenUpdating = True\n        .EnableEvents = True\n    End With\nEnd Su",
+          "Date Modified" : "2018-05-30 09:50:43 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "VB.net",
+          "Date Created" : "2018-05-08 13:42:49 +0100"
+        }
+      ],
+      "Tags" : [
+        "Excel VBA"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-25 13:45:31 +0100",
+      "Date Modified" : "2018-10-01 08:22:58 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Conditional McLarens\/Norcross\/Aviation Logos",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><%if(getValue(\"OCCaseType\/Context\").equals(\"McLarens\")){%>Mclarenslogo.Png<%}elseif(getValue(\"OCCaseType\/Context\").equals(\"Norcross\")){%>NorcrossLOGO.png<%}elseif(getValue(\"OCCaseType\/Context\").equals(\"Aviation\")){%>AviationLOGO.png<%}%>",
+          "Date Modified" : "2018-10-01 08:25:02 +0100",
+          "Note" : "Code to select one of ",
+          "Title" : "Fragment",
+          "Language" : "VB.net",
+          "Date Created" : "2018-09-25 13:45:31 +0100"
+        }
+      ],
+      "Tags" : [
+        "Norcross",
+        "McLarens",
+        "Logos"
+      ]
+    },
+    {
+      "Date Created" : "2018-06-03 21:51:13 +0100",
+      "Date Modified" : "2018-06-03 21:51:18 +0100",
+      "Folder" : "Superbase",
+      "Title" : "Open Ascii",
+      "Fragments" : [
+        {
+          "Content" : " OPEN FILE \"ASCII\"\n FOR x% = 33 TO 126\n x$ = CHR$ (x%)\n BLANK \n Character = x$\n Ascii = x%\n STORE \n VIEW \n NEXT x%",
+          "Date Modified" : "2018-06-03 21:51:24 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "VB.net",
+          "Date Created" : "2018-06-03 21:51:13 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-11 11:19:26 +0100",
+      "Date Modified" : "2018-05-11 11:19:42 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "IF..FALSE...ELSE",
+      "Fragments" : [
+        {
+          "Content" : "<%if(!applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormDateEvent\",\"StartDate”).equals(“”))\n{ %>\n\n<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormDateEvent\",\"StartDate\")%> - <%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormDateEvent\",\"EndDate\")%><%\n\n} else {\n\n%>TBA<% } %>\n\n\nSituation of Loss Date\n\n<% if(!getValue(\"OCCase\/\/EffectiveDate\").equals(\"\")) { %>\n<%= getDateValue(\"OCCase\/\/EffectiveDate\")%>\n<% } else {%>\nUnknown\/tba\n<% } %>\n\nAdjuster Email\n<% if(!getValue(\"EmailAddress\").equals(\"\")){ %>Email: <%=getValue(\"EmailAddress\")%><% } %>",
+          "Date Modified" : "2018-05-17 10:38:58 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-11 11:19:26 +0100"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        " IF--ELSE"
+      ]
+    },
+    {
+      "Date Created" : "2018-06-24 21:11:28 +0100",
+      "Date Modified" : "2018-06-24 21:11:56 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Policy Period (Aviation UK)",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><% if(!getValue(\"ReferenceNumber\").equals(\"\")) { %><%=getValue(\"ReferenceNumber\")%><% } else {%>Not advised<% } %>\n\n<%=getDateValue(\"OCContractStub\/\/StartDate\")%> to <%=getDateValue(\"OCContractStub\/\/EndDate\")%>\n\n\n<%=setLevel()%><% if(!getValue(\"ReferenceNumber\").equals(\"\")) { %><%=getDateValue(\"OCContractStub\/\/StartDate\")%> to <%=getDateValue(\"OCContractStub\/\/EndDate\")%><% } else {%>Not advised<% } %>",
+          "Date Modified" : "2018-06-24 21:14:33 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-06-24 21:11:28 +0100"
+        }
+      ],
+      "Tags" : [
+        "policy",
+        "period",
+        "aviation",
+        " UK"
+      ]
+    },
+    {
+      "Date Created" : "2017-12-27 10:09:44 +0000",
+      "Date Modified" : "2018-05-30 09:38:37 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "International Numbers for Adjusters",
+      "Fragments" : [
+        {
+          "Content" : "Mobile:\t\n<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"OCPartyCaseRole[definedRole\/\/RoleName='Lead Adjuster']\/\/OCPerson\"),\"McLarens.DocumentTags.PartyPhoneEvent\",\"Mobile\")%>\n",
+          "Date Modified" : "2018-06-05 12:50:24 +0100",
+          "Note" : "Mobile: 11223322456\nMobile Format:  +353 112 233 22456\n \nI went through my email and I have explained this before!\n \nThis is the tag to get a formatted mobile:",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2017-12-27 10:09:44 +0000"
+        }
+      ],
+      "Tags" : [
+        "Mobile",
+        "Adjusters"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-08 13:41:57 +0100",
+      "Date Modified" : "2018-05-08 13:42:17 +0100",
+      "Folder" : "VBA",
+      "Title" : "Excel Search and Replace CR Character",
+      "Fragments" : [
+        {
+          "Content" : "Sub Neil()\n    'Replaces ; in columns 1,2,3 & 4 with Chr(10) for ALL Sheets    Dim RowC As Integer\n    Dim ColC As Integer\n    Dim SNum As Integer    For SNum = 1 To Sheets.Count        RowC = 1\n        Do While Sheets(SNum).Cells(RowC, 1).Value <> \"\"            For ColC = 1 To 4                Sheets(SNum).Cells(RowC, ColC).Value = Replace(Sheets(SNum).Cells(RowC, ColC).Value, \";\", Chr(10))            Next            RowC = RowC + 1        Loop    Next\nEnd Sub",
+          "Date Modified" : "2018-05-08 13:42:24 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-08 13:41:57 +0100"
+        }
+      ],
+      "Tags" : [
+        "Excel VBA"
+      ]
+    },
+    {
+      "Date Created" : "2019-01-23 08:52:41 +0000",
+      "Date Modified" : "2019-01-23 08:53:07 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "If PostCode = \".\" then omit else display Postcode",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><%if(getValue(\"OCCaseType\/Context\").equals(\"McLarens\")){%>Mclarenslogo.Png<%}elseif(getValue(\"OCCaseType\/Context\").equals(\"Norcross\")){%>NorcrossLOGO.png<%}elseif(getValue(\"OCCaseType\/Context\").equals(\"Aviation\")){%>AviationLOGO.png<%}%>\n\n<%if(=applyEventToBusinessEntity(getEformObject(pageContext),\"McLarens.DocumentTags.OfficePostCodeEvent\")%>",
+          "Date Modified" : "2019-02-15 15:37:37 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Java",
+          "Date Created" : "2019-01-23 08:52:41 +0000"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        " Spanish",
+        " Post Code"
+      ]
+    },
+    {
+      "Date Created" : "2018-06-03 21:45:42 +0100",
+      "Date Modified" : "2018-06-22 08:45:06 +0100",
+      "Folder" : "VBA",
+      "Title" : "Clean Tag code",
+      "Fragments" : [
+        {
+          "Content" : "\/Users\/Rog\/Desktop\/Superbase.lnk\/Users\/Rog\/Desktop\/Superbase.lnk",
+          "Date Modified" : "2018-06-03 21:45:57 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-06-03 21:45:42 +0100"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        "Smart Quotes",
+        "Replace",
+        "VBA"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-16 11:36:21 +0100",
+      "Date Modified" : "2018-05-16 11:36:36 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "PREVIOUS PAYMENTS",
+      "Fragments" : [
+        {
+          "Content" : "<%= getDecimalValue(\"TotalExcessAdjustedLoss\")%>",
+          "Date Modified" : "2018-05-16 11:36:49 +0100",
+          "Note" : "McLarens US Financials",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-16 11:36:21 +0100"
+        }
+      ],
+      "Tags" : [
+        "US",
+        " Financials",
+        " "
+      ]
+    },
+    {
+      "Date Created" : "2018-10-22 16:00:47 +0100",
+      "Date Modified" : "2018-10-22 16:01:20 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Secondary Asjuster Signature",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><% if(getValue(\"OCPartyCaseRole[definedRole\/\/RoleName='Secondary Adjuster']\").equals(\"\")) { %><% } else {%><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Secondary Adjuster']\")%><%=getUserSignatureImage(pageContext, getValue(\"UserID\"))%><% } %>\n\n <%=setLevel()%><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Secondary Adjuster']\")%><%=getValue(\"FirstNames\")%> <%=getValue(\"LastName\")%> <%=getValue(\"PreferredName\")%>\n\n<%=getValue(\"Occupation\/\/InstanceName\")%>\n\n<% if(!getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\").equals(\"\")){ %>Mobile: <%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%><% } %>\n\n<% if(!getValue(\"EmailAddress\").equals(\"\")){ %>Email: <%=getValue(\"EmailAddress\")%><% } %>",
+          "Date Modified" : "2018-10-22 16:02:47 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-10-22 16:00:47 +0100"
+        }
+      ],
+      "Tags" : [
+        "Signature",
+        "Adjuster",
+        "Secondary"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-09 13:00:27 +0100",
+      "Date Modified" : "2018-05-09 13:01:03 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Report Date",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><%=getDateValue(\"LocalReportDate\")%>",
+          "Date Modified" : "2018-05-09 13:01:17 +0100",
+          "Note" : "It's in QSSANDPIT1 and it works fine on McLarens Cases. Once I open an aviation case, it goes blank.\n\nIn Production, its blank for all Business units.\n\nI ran some Marine PLAs on MAU.172247 I think (Testprod), but no luck.\n",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-09 13:00:27 +0100"
+        }
+      ],
+      "Tags" : [
+        "Date"
+      ]
+    },
+    {
+      "Date Created" : "2018-10-17 12:25:32 +0100",
+      "Date Modified" : "2018-10-17 12:25:40 +0100",
+      "Folder" : "Uncategorized",
+      "Title" : "Products Validation",
+      "Fragments" : [
+        {
+          "Content" : "",
+          "Date Modified" : "2018-10-17 12:25:32 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-10-17 12:25:32 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-30 09:36:33 +0100",
+      "Date Modified" : "2018-05-30 09:36:50 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Contract Period",
+      "Fragments" : [
+        {
+          "Content" : "<%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormDateEvent\",\"ContractStartDate\")%> - <%=applyEventToBusinessEntityParameter(getBusinessEntity(\"lobDataForm\/\/OCExtraData\"),\"McLarens.DocumentTags.LobFormDateEvent\",\"ContractEndDate\")%>",
+          "Date Modified" : "2018-05-30 09:37:09 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2018-05-30 09:36:33 +0100"
+        }
+      ],
+      "Tags" : [
+        "Contract",
+        "eform"
+      ]
+    },
+    {
+      "Date Created" : "2018-10-22 11:23:57 +0100",
+      "Date Modified" : "2018-10-22 11:24:14 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "McLarens US Email Sub Header",
+      "Fragments" : [
+        {
+          "Content" : "<%=setLevel()%><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Handling Officer']\")%><%if(getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \").equals(\"\")) { %>Enter email __@__<%} else {%><%=getValue(\"OCFlatContact[ContactMethod\/\/InstanceName='Email']\/FreeFormatAddress \")%><%} %>",
+          "Date Modified" : "2018-10-22 15:58:46 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-10-22 11:23:57 +0100"
+        }
+      ],
+      "Tags" : [
+        "Email",
+        " McLarens US"
+      ]
+    },
+    {
+      "Date Created" : "2018-12-16 19:58:06 +0000",
+      "Date Modified" : "2018-12-16 19:58:22 +0000",
+      "Folder" : "CSS",
+      "Title" : "EDD CSS",
+      "Fragments" : [
+        {
+          "Content" : "\/* Easy Digital Downloads *\/\n.store-info {\n\tmargin: 2em 0 0;\n\tmax-width: 700px;\n}\n.product-grid {\n\tmargin-top: 2em;\n}\n.threecol.product {\n\tdisplay: inline-block;\n\twidth: 324px;\n\tmargin: 0 29px 32px 0;\n\tvertical-align: top;\n\tbackground: #F5F5F5;\n\tpadding: 16px;\n\tborder-radius: 5px;\n\tbox-shadow: 0 5px #F1F1F1;\n}\n.threecol.product:nth-child(3n+3) {\n\tmargin-right: 0;\n}\n.product-info {\n\tfont-size: 8px;\n\tline-height: 1.6em;\n}\n.product-img {\n\tmargin-bottom: 1.5em;\n}\n.product-title {\n\tcolor: #404040;\n}\n.product-title h3 {\n\tfont-size: 12px;\n}\n.view-details {\n\tcolor: #404040;\n\tfont-size: 13px;\n}\n.view-details .fa {\n\tmargin-left: 6px;\n}\n#secondary .widget_edd_cart_widget {\n\tbackground: #f5f5f5;\n\tpadding: 32px;\n\tborder-radius: 5px;\n\tbox-shadow: 0 5px #f1f1f1;\n}\n#secondary .edd_download_purchase_form li:not(:last-child) {\n\tpadding-bottom: 10px;\n\tborder-bottom: 2px solid #f5f5f5;\n\tmargin-bottom: 10px;\n}\n.edd_download_purchase_form li:before,\n#secondary .widget_edd_cart_widget li:before {\n\tcontent: \"\";\n\tmargin-right: 0;\n}\n#secondary .edd_download_purchase_form .edd_price_options {\n\tmargin-bottom: 24px;\n}\n#edd-purchase-button,\n.edd-submit,\ninput[type=submit].edd-submit {\n\tfont-size: 16px;\n\tborder: none;\n\tborder-radius: 3px;\n}\n.edd-submit.button.white,\n.edd-submit.button.white:hover {\n\tbackground: #f5f5f5;\n\tcolor: #404040;\n\tbox-shadow: 0 3px #f1f1f1;\n}\n.edd-submit.button.gray,\n.edd-submit.button.gray:hover {\n\tbackground: #ccc;\n\tcolor: #404040;\n\tbox-shadow: 0 3px #aaa;\n}\n.edd-submit.button.blue,\n.edd-submit.button.blue:hover {\n\tbackground: #2980B9;\n\tbox-shadow: 0 3px #286D9B;\n}\n.edd-submit.button.red,\n.edd-submit.button.red:hover {\n\tbackground: #E74C3C;\n\tbox-shadow: 0 3px #C5483B;\n}\n.edd-submit.button.green,\n.edd-submit.button.green:hover {\n\tbackground: #2ECC71;\n\tbox-shadow: 0 3px #2FB467;\n}\n.edd-submit.button.yellow,\n.edd-submit.button.yellow:hover {\n\tbackground: #F1C40F;\n\tbox-shadow: 0 3px #DAB319;\n}\n.edd-submit.button.orange,\n.edd-submit.button.orange:hover {\n\tbackground: #E67E22;\n\tbox-shadow: 0 3px #C77023;\n}\n.edd-submit.button.dark-gray,\n.edd-submit.button.dark-gray:hover {\n\tbackground: #404040;\n\tbox-shadow: 0 3px #202020;\n}\n#secondary .product-info-wrapper .edd-cart-added-alert {\n\tcolor: #404040;\n\tfont-size: 13px;\n\tmargin-top: 3px;\n}\n#edd_checkout_cart_form {\n\tmargin-bottom: 1.5em;\n}\n#edd_checkout_cart {\n\tmargin-bottom: 0;\n}\n.edd-template #edd_checkout_cart input[type=\"number\"].edd-item-quantity {\n\tdisplay: inline-block;\n\tbackground: #f1f1f1;\n\tpadding: 2px 6px;\n}\n.edd-checkout-template #edd_checkout_form_wrap,\n.edd-history-template #content,\n.edd-confirmation-template #content,\n.edd-members-template #content,\n.edd-failed-template #content,\n.focus-template #content,\n.landing-template #content {\n\tmargin: 0 auto;\n\tmax-width: 700px;\n}\n.store-404 {\n\tmargin: 64px auto 0;\n\tmax-width: 700px;\n\tmin-height: 268px\n}\n#edd_user_history td,\n#edd_user_history th {\n\tpadding: 10px;\n}\n#edd_purchase_receipt,\n#edd_user_history {\n\tmargin-bottom: 2em;\n}\n.edd-confirmation-template .entry-content #edd_purchase_receipt thead th:first-child,\n.edd-confirmation-template .entry-content #edd_purchase_receipt tbody td:first-child {\n\tpadding: 15px 10px;\n\tborder-width: 0 1px 0 0;\n}\n.edd-confirmation-template .entry-content #edd_purchase_receipt thead th:first-child,\n.edd-confirmation-template .entry-content #edd_purchase_receipt tbody tr:not(:last-child) td:first-child {\n\tborder-bottom-width: 1px;\n}\n.edd-confirmation-template .entry-content #edd_purchase_receipt thead th:last-child,\n.edd-confirmation-template .entry-content #edd_purchase_receipt tbody td:last-child {\n\tpadding: 15px 10px;\n\tborder-width: 0 0 1px;\n}\n.edd-confirmation-template .entry-content #edd_purchase_receipt tbody tr:last-child td:last-child {\n\tborder-bottom-width: 0;\n}\n#edd_purchase_receipt_products {\n\tmargin-bottom: 3em;\n}\n#edd_purchase_receipt_products th {\n\tfont-weight: bold;\n\tpadding: 15px 10px;\n}\n.entry-content #edd_purchase_receipt_products tbody td {\n\tborder-width: 0 0 1px;\n}\n#edd_purchase_receipt_products td {\n\tpadding: 15px 10px;\n}\n#edd_profile_editor_form {\n\tpadding: 16px;\n}\n#edd_profile_editor_form legend {\n\tdisplay: block;\n\tfont-weight: bold;\n\tmargin-bottom: 10px;\n}\n#edd_profile_editor_form p > input:not([type=\"submit\"]),\n#edd_profile_editor_form p > select,\n#edd_profile_editor_form p {\n\tmargin-bottom: 1em;\n}\n.tax-download_category .product .continue-reading,\n.tax-download_tag .product .continue-reading {\n\tdisplay: none;\n}\n#edd_login_form {\n\tpadding: 16px;\n\tmargin-top: 32px;\n}\n#edd_login_form legend {\n\tmargin-bottom: 1.5em;\n}\n#edd_login_form label {\n\tdisplay: inline-block;\n\twidth: 100px;\n}\n#edd_login_submit {\n\tmin-width: 150px;\n}\n#edd_checkout_wrap #edd_checkout_form_wrap #edd_discount_code,\n#edd_checkout_wrap #edd_checkout_form_wrap #edd_purchase_submit {\n\tbackground: none;\n}\n#edd_checkout_cart .edd_cart_header_row th,\n#edd_checkout_form_wrap #edd-discount-code-wrap,\n#edd_checkout_form_wrap #edd-login-account-wrap,\n#edd_checkout_form_wrap #edd-new-account-wrap,\n#edd_checkout_form_wrap #edd_final_total_wrap,\n#edd_checkout_form_wrap #edd_show_discount,\n.edd-confirmation-template #edd_purchase_receipt thead th:first-child,\n.edd-confirmation-template #edd_purchase_receipt tbody td:first-child,\n#edd_purchase_receipt_products th,\n#edd_profile_editor_form,\n#edd_checkout_form_wrap fieldset:not(#edd_purchase_submit),\n#edd_login_form {\n\tbackground: #F5F5F5;\n}\n#edd_checkout_form_wrap #edd-discount-code-wrap,\n#edd_checkout_form_wrap #edd-login-account-wrap,\n#edd_checkout_form_wrap #edd-new-account-wrap,\n#edd_checkout_form_wrap #edd_final_total_wrap,\n#edd_checkout_form_wrap #edd_show_discount,\n#edd_checkout_form_wrap fieldset,\n#edd_login_form,\n#edd_purchase_receipt,\n#edd_user_history,\n#edd_purchase_receipt_products,\n#edd_profile_editor_form,\n#bbpress-forums fieldset.bbp-form,\n#bbpress-forums div.wp-editor-container,#edd_checkout_cart_form,\n.edd-confirmation-template #edd_purchase_receipt thead th:first-child,\n.edd-confirmation-template #edd_purchase_receipt tbody td:first-child,\n.edd-confirmation-template #edd_purchase_receipt thead th:last-child,\n.edd-confirmation-template #edd_purchase_receipt tbody td:last-child,\n#edd_purchase_receipt_products tbody td {\n\tborder: 1px solid #f1f1f1;\n}\n#edd_checkout_form_wrap legend {\n\tdisplay: inline-block;\n}\n#edd_purchase_receipt_products th {\n\tborder-bottom: 1px solid #f1f1f1;\n}\n#edd_checkout_cart td,\n#edd_checkout_cart th {\n\tborder-color: #f1f1f1;\n}\n.edd_download_purchase_form .edd_download_quantity_wrapper {\n\tmargin: 6px 0;\n}\n.edd_download_purchase_form .edd_multi_mode .edd_download_quantity_wrapper {\n\tpadding-left: 16px;\n}\n.edd_multi_mode .edd_download_quantity_wrapper .edd_price_option_sep {\n\tdisplay: none;\n}\n.edd_download_purchase_form .edd_multi_mode .edd_download_quantity_wrapper:before {\n\tcolor: #d8d8d8;\n\tfont-family: \"FontAwesome\";\n\tcontent: \"\\f00d\";\n\tmargin: 0 5px 0 2px;\n}\n.edd_download_purchase_form .edd_download_quantity_wrapper .edd-item-quantity {\n\twidth: 60px;\n\tpadding: 6px;\n\tfont-size: 80%;\n}\n\n\/* Recurring Payments *\/\n.eddr-notice {\n\ttext-align: left;\n}\n.widget .eddr-notice:only-of-type {\n\tmargin-top: 10px;\n}\n.widget .eddr-notice:not(:only-of-type):first-of-type {\n\tmargin-top: 10px;\n}\n\n\/* Variable Pricing Descriptions *\/\n.edd-variable-pricing-desc:not(:empty) {\n\tbackground: #f5f5f5;\n\tpadding: 10px;\n\tborder-radius: 4px;\n\tmargin: 10px 0;\n}\n.edd-variable-pricing-desc:empty {\n\tmargin-bottom: 0;\n}\n",
+          "Date Modified" : "2018-12-16 19:58:49 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Markdown",
+          "Date Created" : "2018-12-16 19:58:06 +0000"
+        }
+      ],
+      "Tags" : [
+        "edd",
+        "css",
+        " Wordpress"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-08 13:38:16 +0100",
+      "Date Modified" : "2018-05-08 13:38:25 +0100",
+      "Folder" : "HTML",
+      "Title" : "Adsense Code",
+      "Fragments" : [
+        {
+          "Content" : "<style type=\"text\/css\">\n@import url(http:\/\/www.google.com\/cse\/api\/branding.css);\n<\/style>\n<div class=\"cse-branding-right\" style=\"background-color:#000000;color:#FFFFFF\">\n<div class=\"cse-branding-form\">\n<form action=\"http:\/\/www.rogettes.com\/index.asp?pageid=105268\" id=\"cse-search-box\">\n<div>\n<input type=\"hidden\" name=\"cx\" value=\"partner-pub-9896972942377939:gyhnk3-f0nv\" \/>\n<input type=\"hidden\" name=\"cof\" value=\"FORID:10\" \/>\n<input type=\"hidden\" name=\"ie\" value=\"ISO-8859-1\" \/>\n<input type=\"text\" name=\"q\" size=\"31\" \/>\n<input type=\"submit\" name=\"sa\" value=\"Search\" \/>\n<\/div>\n<\/form>\n<\/div>\n<div class=\"cse-branding-logo\">\n<img src=\"http:\/\/www.google.com\/images\/poweredby_transparent\/poweredby_000000.gif\" alt=\"Google\" \/>\n<\/div>\n<div class=\"cse-branding-text\">\nCustom Search\n<\/div>\n<\/div>\n=================================================Search Results Code\nPaste this code on http:\/\/www.rogettes.com\/index.asp?pageid=105268, where you would like your search results to appear.\n=================================================<div id=\"cse-search-results\"><\/div>\n<script type=\"text\/javascript\">\nvar googleSearchIframeName = \"cse-search-results\";\nvar googleSearchFormName = \"cse-search-box\";\nvar googleSearchFrameWidth = 800;\nvar googleSearchDomain = \"www.google.co.uk\";\nvar googleSearchPath = \"\/cse\";\n<\/script>\n<script type=\"text\/javascript\" src=\"http:\/\/www.google.com\/afsonline\/show_afs_search.js\"><\/script>\n================================================ADSENSE CONTENT\n<script type=\"text\/javascript\"><!--\ngoogle_ad_client = \"pub-9896972942377939\";\n\/* Rogettes Adsense *\/\ngoogle_ad_slot = \"6615847081\";\ngoogle_ad_width = 200;\ngoogle_ad_height = 200;\n\/\/-->\n<\/script>\n<script type=\"text\/javascript\"\nsrc=\"http:\/\/pagead2.googlesyndication.com\/pagead\/show_ads.js\">\n<\/script>",
+          "Date Modified" : "2018-05-08 13:39:10 +0100",
+          "Note" : "Adsense code\nADSENSE SEARCHSearch Box Code\nPaste this code in the page where you'd like your search box to appear.",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2018-05-08 13:38:16 +0100"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2019-05-21 14:41:35 +0100",
+      "Date Modified" : "2019-05-21 14:41:59 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Checking if Document Template Sample exists",
+      "Fragments" : [
+        {
+          "Content" : "Document Samples::Filename ≠ \"\"\n",
+          "Date Modified" : "2019-05-21 15:32:12 +0100",
+          "Note" : "To determine if a Sample related record exists",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2019-05-21 14:41:35 +0100"
+        }
+      ],
+      "Tags" : [
+        "Filemaker",
+        "Document",
+        " Samples"
+      ]
+    },
+    {
+      "Date Created" : "2019-01-09 10:45:37 +0000",
+      "Date Modified" : "2019-01-09 10:46:00 +0000",
+      "Folder" : "Fineos Tags",
+      "Title" : "Broker Claim Ref\/Not Advised",
+      "Fragments" : [
+        {
+          "Content" : "<% if(!getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Broker Claim Reference']\/\/Value\").equals(\"\")) { %><%=getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Broker Claim Reference']\/\/Value\")%><% } else {%>Not advised<% } %>",
+          "Date Modified" : "2019-01-09 10:48:10 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "JavaScript",
+          "Date Created" : "2019-01-09 10:45:37 +0000"
+        }
+      ],
+      "Tags" : [
+        "Fineos",
+        "Broker"
+      ]
+    },
+    {
+      "Date Created" : "2018-11-16 11:51:55 +0000",
+      "Date Modified" : "2018-11-16 11:52:04 +0000",
+      "Folder" : "Mac Terminal",
+      "Title" : "Stop Filemaker Server",
+      "Fragments" : [
+        {
+          "Content" : "sudo launchctl stop com.filemaker.fms",
+          "Date Modified" : "2018-11-16 11:52:05 +0000",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-11-16 11:51:55 +0000"
+        }
+      ],
+      "Tags" : [
+
+      ]
+    },
+    {
+      "Date Created" : "2018-05-18 15:11:59 +0100",
+      "Date Modified" : "2018-05-18 15:12:16 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Your Ref: US Page 2 Header",
+      "Fragments" : [
+        {
+          "Content" : "<%if(getBooleanValue(“CoInsured”).equals(“Yes”)){%>Per Attached Schedule<%}else if(getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Client Claim Reference']\/\/Value\").equals(\"\")){%><%}else {%><%=getValue(\"OCCaseAlias[caseTypeAlias\/\/aliasName='Client Claim Reference']\/\/Value\")%><%}%>",
+          "Date Modified" : "2018-05-18 15:12:34 +0100",
+          "Note" : "Special code for US Page 2 headers",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-18 15:11:59 +0100"
+        }
+      ],
+      "Tags" : [
+        "Your Ref",
+        "Header"
+      ]
+    },
+    {
+      "Date Created" : "2018-09-10 15:21:07 +0100",
+      "Date Modified" : "2018-09-25 13:45:28 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Location of Loss",
+      "Fragments" : [
+        {
+          "Content" : "location of loss\n<%=setLevel()%><% if(!getValue(“primLossLoc\/\/Address5”\n).equals(““)) { %><%=getValue(“primLossLoc\/\/Address5”)%>, <%=getValue(“primLossLoc\/\/Country\/\/InstanceName”)%><% } else {%> Not advised<% } %><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Claimant']\")%>\n<% if(!getValue(\"Fullname\").equals(\"\")){%>CLAIMANT\n<%=getValue(\"Fullname\")%>\n<%}else{%><%}%>RESERVE\/Loss\/Repair amount\n<%=setLevel()%><%  if(getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\").equals(\"\")){ %>See Executive Summary <%}else if(getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\").equals(\"0.00\")){ %>See Executive Summary<%}else{%><%=getValue(\"MCLFinancialsTable\/aprClmResGros\/CurrencyCode\")%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\")%><% } %>\n\n\nlocation of loss\n<%=setLevel()%><% if(!getValue(“primLossLoc\/\/Address5”\n).equals(““)) { %><%=getValue(“primLossLoc\/\/Address5”)%>, <%=getValue(“primLossLoc\/\/Country\/\/InstanceName”)%><% } else {%> Not advised<% } %><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Claimant']\")%>\n<% if(!getValue(\"Fullname\").equals(\"\")){%>CLAIMANT\n<%=getValue(\"Fullname\")%>\n<%}else{%><%}%>RESERVE\/Loss\/Repair amount\n<%=setLevel()%><%  if(getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\").equals(\"\")){ %>See Executive Summary <%}else if(getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\").equals(\"0.00\")){ %>See Executive Summary<%}else{%><%=getValue(\"MCLFinancialsTable\/aprClmResGros\/CurrencyCode\")%><%=getDecimalValue(\"MCLFinancialsTable\/aprClmResGros\/Amount\")%><% } %>\n",
+          "Date Modified" : "2018-09-10 15:22:28 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-09-10 15:21:07 +0100"
+        }
+      ],
+      "Tags" : [
+        "Location",
+        "Loss",
+        "Fineos"
+      ]
+    },
+    {
+      "Date Created" : "2018-05-11 10:54:25 +0100",
+      "Date Modified" : "2018-05-11 10:54:44 +0100",
+      "Folder" : "Fineos Tags",
+      "Title" : "Adjuster Signature Block US",
+      "Fragments" : [
+        {
+          "Content" : "<%=getValue(\"FirstNames\")%> <%=getValue(\"LastName\")%> <%=getValue(\"PreferredName\")%>\n<%=getValue(\"Occupation\/\/InstanceName\")%>\nMobile:\t<%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%>\nEmail:\t <%=getValue(\"EmailAddress\")%><%=setLevel()%><%=setLevel(\"OCPartyCaseRole[definedRole\/\/RoleName='Secondary Adjuster']\")%> <%=getValue(\"FirstNames\")%> <%=getValue(\"LastName\")%> <%=getValue(\"PreferredName\")%>\n<%=getValue(\"Occupation\/\/InstanceName\")%>\n<% if(!getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\").equals(\"\")){ %>Mobile:  <%=getValue(\"OCPhone[ContactMethod\/\/InstanceName='Mobile']\/TelephoneNo\")%><% } %>\n<% if(!getValue(\"EmailAddress\").equals(\"\")){ %>Email: <%=getValue(\"EmailAddress\")%><% } %>",
+          "Date Modified" : "2018-05-11 10:54:56 +0100",
+          "Note" : "",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2018-05-11 10:54:25 +0100"
+        }
+      ],
+      "Tags" : [
+        "Adjuster",
+        "Signature"
+      ]
+    },
+    {
+      "Date Created" : "2019-06-15 19:15:09 +0100",
+      "Date Modified" : "2019-06-15 19:15:39 +0100",
+      "Folder" : "Filemaker",
+      "Title" : "Export Container Picture field for all records",
+      "Fragments" : [
+        {
+          "Content" : "Go to Record\/Request\/Page [First]\nLoop\n   Set Variable [$filePath; Value: Get ( DesktopPath ) MyPics::Description & \".jpg\"]\n   Export Field Contents [MyPics::Picture; “$filePath”]  \n       Go to Record\/Request\/Page [Next; Exit after last]\nEnd Loop",
+          "Date Modified" : "2019-06-15 19:15:50 +0100",
+          "Note" : "Goes through all records exporting a single container field",
+          "Title" : "Fragment",
+          "Language" : "Plain Text",
+          "Date Created" : "2019-06-15 19:15:09 +0100"
+        }
+      ],
+      "Tags" : [
+        "Filemaker",
+        " Script",
+        " Container fields"
+      ]
+    }
+  ]
+}
